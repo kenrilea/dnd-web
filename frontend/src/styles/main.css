@@ -1,0 +1,23 @@
+body {
+  background-color: rgb(41, 41, 41);
+  margin: 0;
+  color: white;
+}
+.container_default {
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  background-color: rgb(19, 19, 19);
+  padding: 5px;
+  margin: 5px;
+}
+.container_inner {
+  padding: 2px;
+  margin: 2px;
+}
+.container_row {
+  display: flex;
+}
+.size_col {
+  width: 200px;
+}
