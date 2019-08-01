@@ -33,9 +33,11 @@ class UnconnectedSignUp extends React.Component {
     let data = new FormData();
     data.append("username", this.state.username);
     data.append("password", this.state.password);
-    console.log(this.state.username + this.state.password);
-    console.log(event);
-    fetch(proxy + "/signup", { method: "POST", body: data })
+    fetch(proxy + "/signup", {
+      method: "POST",
+      body: data,
+      credentials: "include"
+    })
       .then(res => {
         return res.text();
       })
@@ -45,8 +47,9 @@ class UnconnectedSignUp extends React.Component {
           this.setState({ signUpError: parsedBody.result });
           return;
         } else {
-          console.log(parsedBody.result);
-          this.setState({ signUpError: "noError", username: "", password: "" });
+          console.log(parsedBody);
+          this.props.dispatch({ type: "login" });
+          this.setState({ username: "", password: "", confirmPassword: "" });
         }
       });
   };

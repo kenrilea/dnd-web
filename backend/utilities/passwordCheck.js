@@ -1,4 +1,4 @@
-let passwordCheck = password => {
+let passwordCheck = (password, res) => {
   let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
   let passwordArray = password.split("");
   let hasNumber = false;
@@ -21,6 +21,15 @@ let passwordCheck = password => {
   if (hasNumber && hasNormal && hasLength && hasUpperCase) {
     return true;
   }
+  console.log("password failed check");
+  res.status(400);
+  res.send(
+    JSON.stringify({
+      success: false,
+      result:
+        "Password must be 7 or more characters long and contain one lowercase letter, one number, on upper case letter"
+    })
+  );
   return false;
 };
 
