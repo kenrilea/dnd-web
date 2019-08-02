@@ -23,8 +23,7 @@ const HandleAuth = require("./custom_modules/login-signup/module");
 // });
 //_____________________MOGODB Setup___________________
 
-let dataBaseUrl =
-  "mongodb+srv://admin:WhqtQsNqxt@cluster0-58fms.mongodb.net/test?retryWrites=true&w=majority";
+let dataBaseUrl = require("./utilities/databaseURI");
 
 let UsersDB;
 let Collection_LoginInfo;
@@ -35,7 +34,7 @@ let Collection_Sessions;
     dataBaseUrl,
     { useNewUrlParser: true },
     (err, allDbs) => {
-      console.log(
+      console.info(
         "-----------------------Database Initialised-----------------------"
       );
       // Add option useNewUrlParser to get rid of console warning message
