@@ -12,24 +12,13 @@ class UnconnectedLandingPage extends React.Component {
     this.state = {};
   }
 
-  handleLogOutClick = () => {
-    console.log("logging out");
-    document.cookie = "sid=undefined";
-    this.props.dispatch({ type: "logout" });
-  };
-  renderLoginSignUp = loggedIn => {
-    if (loggedIn !== false) {
-      return <></>;
-    }
-    return <LoginSignUp />;
-  };
   render = () => {
     return (
       <>
         <div>
+          <LoginSignUp />
           <LogoutButton />
         </div>
-        {this.renderLoginSignUp(this.props.loggedIn)}
       </>
     );
   };

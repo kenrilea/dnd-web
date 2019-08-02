@@ -35,6 +35,9 @@ class UnconnectedLoginSignup extends React.Component {
     return <Login />;
   };
   render = () => {
+    if (this.props.loggedIn === true) {
+      return <></>;
+    }
     return (
       <div>
         <h5>{this.state.displayMode}</h5>
@@ -49,7 +52,7 @@ class UnconnectedLoginSignup extends React.Component {
   };
 }
 let mapStateToProps = state => {
-  return { characterData: state.characterData };
+  return { loggedIn: state.loggedIn };
 };
 
 let LoginSignup = connect(mapStateToProps)(UnconnectedLoginSignup);
