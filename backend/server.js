@@ -10,7 +10,7 @@ const app = express();
 const MongoClient = require("mongodb").MongoClient;
 
 const passwordCheck = require(__dirname + "/utilities/passwordCheck.js");
-
+const signUpPreChecks = require("./utilities/signUpPreChecks");
 const passwordHash = require("password-hash");
 //___________________Custom Modules___________________________
 
@@ -57,19 +57,14 @@ app.use("/assets", express.static(__dirname + "/assets"));
 
 //_________________Begining of END POINTS____________________
 
+//test
 app.get("/", (req, res) => {
   res.send("hello");
 });
-//----------------------------------------------------------------------------
 
 //SIGNUP
 app.post("/signup", upload.none(), (req, res) => {
-  if (req.body === undefined) {
-    console.log("no data with login request");
-    res.status(400);
-    res.send(
-      JSON.stringify({ success: false, result: "signup data not recieved" })
-    );
+  if (!signUpPreChecks(req.body, res)) {
     return;
   }
   console.log("login request recieved || user: " + req.body.username);
@@ -86,7 +81,6 @@ app.post("/signup", upload.none(), (req, res) => {
   );
 });
 
-//---------------------------------------------------------------------------
 //AutoLogin
 app.post("/auto-login", upload.none(), (req, res) => {
   console.log(req.cookies.sid);
@@ -113,7 +107,6 @@ app.post("/login", upload.none(), (req, res) => {
   );
 });
 
-//---------------------------------------------------------------------------
 //__________________TEST CODE_________________________
 
 //_________________End of END POINTS____________________

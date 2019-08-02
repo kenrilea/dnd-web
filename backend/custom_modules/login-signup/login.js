@@ -18,6 +18,7 @@ let login = (
             result: "username or password was incorrect"
           })
         );
+        return;
       }
       const foundUser = foundUserArr[0];
       if (passwordHash.verify(password, foundUser.hashedPassword)) {

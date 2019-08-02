@@ -1,31 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Login from "../../components/Login.jsx";
-import SignUp from "../../components/SignUp.jsx";
+import LogoutButton from "../../components/auth/LogoutButton.jsx";
+import LoginSignUp from "../../components/auth/LoginSignup.jsx";
 
 import proxy from "../../proxy.js";
 
 class UnconnectedLandingPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "" };
+    this.state = {};
   }
-  submitLogIn = event => {
-    event.preventDefault();
-    let data = new FormData();
-    data.append("username", this.state.username);
-    data.append("password", this.state.password);
-    console.log(this.state.username + this.state.password);
-    console.log(event);
-    fetch(proxy + "/login", { method: "POST", body: data });
-  };
-  OnChangeUsername = event => {
-    this.setState({ username: event.target.value });
-  };
-  OnChangePassword = event => {
-    this.setState({ password: event.target.value });
-  };
+
   handleLogOutClick = () => {
     console.log("logging out");
     document.cookie = "sid=undefined";
@@ -33,22 +19,19 @@ class UnconnectedLandingPage extends React.Component {
   };
   renderLoginSignUp = loggedIn => {
     if (loggedIn !== false) {
-      return (
-        <div>
-          Logged In
-          <button onClick={this.handleLogOutClick}>Log out</button>
-        </div>
-      );
+      return <></>;
     }
-    return (
-      <div>
-        <Login />
-        <SignUp />
-      </div>
-    );
+    return <LoginSignUp />;
   };
   render = () => {
-    return <div>{this.renderLoginSignUp(this.props.loggedIn)}</div>;
+    return (
+      <>
+        <div>
+          <LogoutButton />
+        </div>
+        {this.renderLoginSignUp(this.props.loggedIn)}
+      </>
+    );
   };
 }
 

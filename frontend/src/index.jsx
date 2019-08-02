@@ -12,7 +12,7 @@ import "./styles/resetDefaults.css";
 import App from "./components/App.jsx";
 
 import LandingPage from "./views/landing-page/LandingPage.jsx";
-import AutoLogin from "./components/AutoLogin.jsx";
+import AutoLogin from "./components/auth/AutoLogin.jsx";
 
 let root = (
   <Provider store={store}>

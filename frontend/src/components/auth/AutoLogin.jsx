@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import proxy from "../proxy.js";
+import proxy from "../../proxy.js";
 
 class UnconnectedAutoLogin extends React.Component {
   constructor(props) {
