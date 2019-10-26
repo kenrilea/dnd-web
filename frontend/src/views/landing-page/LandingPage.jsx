@@ -15,10 +15,8 @@ class UnconnectedLandingPage extends React.Component {
   render = () => {
     return (
       <>
-        <div>
-          <LoginSignUp />
-          <LogoutButton />
-        </div>
+        <LoginSignUp />
+        <LogoutButton />
       </>
     );
   };

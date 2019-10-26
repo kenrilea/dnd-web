@@ -21,3 +21,10 @@ body {
 .size_col {
   width: 200px;
 }
+.container_page_default {
+  box-sizing: border-box;
+  height: 100vh;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(198, 208, 218);
+}
