@@ -13,6 +13,7 @@ import App from "./components/App.jsx";
 
 import LandingPage from "./views/landing-page/LandingPage.jsx";
 import AutoLogin from "./components/auth/AutoLogin.jsx";
+import MonsterManager from "./views/monster-manager/MonsterManager.jsx";
 
 let root = (
   <Provider store={store}>
@@ -22,6 +23,11 @@ let root = (
       <Switch>
         {/*---------------- exact TRUE routes here --------------*/}
         <Route exact={true} path={"/"} component={LandingPage} />
+        <Route
+          exact={true}
+          path={"/monster-manager"}
+          component={MonsterManager}
+        />
       </Switch>
     </BrowserRouter>
   </Provider>
