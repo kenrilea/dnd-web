@@ -12,6 +12,7 @@ const MongoClient = require("mongodb").MongoClient;
 const passwordCheck = require(__dirname + "/utilities/passwordCheck.js");
 const signUpPreChecks = require("./utilities/signUpPreChecks");
 const passwordHash = require("password-hash");
+const character = require('./custom_modules/character/character.js')
 //___________________Custom Modules___________________________
 
 //login signup
@@ -28,6 +29,7 @@ let dataBaseUrl = require("./utilities/databaseURI");
 let UsersDB;
 let Collection_LoginInfo;
 let Collection_Sessions;
+let Collection_CharacterStats;
 
 (async function initDB() {
   await MongoClient.connect(
@@ -40,11 +42,15 @@ let Collection_Sessions;
       // Add option useNewUrlParser to get rid of console warning message
       if (err) throw err;
       UsersDB = allDbs.db("Users");
+      CharactersDB = allDbs.db("Characters");
       Collection_LoginInfo = UsersDB.collection("LoginInfo");
       Collection_Sessions = UsersDB.collection("Sessions");
+      Collection_CharacterStats = CharactersDB.collection("stats");
     }
   );
 })();
+
+const collections = 
 
 //_____________________MIDLEWARE_______________________
 app.use(cookieParser());
@@ -58,8 +64,8 @@ app.use("/assets", express.static(__dirname + "/assets"));
 //_________________Begining of END POINTS____________________
 
 //test
-app.get("/", (req, res) => {
-  res.send("hello");
+app.get("/test", (req, res) => {
+  res.send("test successful");
 });
 
 //SIGNUP
@@ -80,6 +86,7 @@ app.post("/signup", upload.none(), (req, res) => {
     res
   );
 });
+
 
 //AutoLogin
 app.post("/auto-login", upload.none(), (req, res) => {
@@ -106,6 +113,14 @@ app.post("/login", upload.none(), (req, res) => {
     res
   );
 });
+
+// Character
+
+character.routes(app, upload, () => ({
+  loginInfo: Collection_LoginInfo,
+  sessions: Collection_Sessions,
+  characterStats: Collection_CharacterStats,
+}));
 
 //__________________TEST CODE_________________________
 
