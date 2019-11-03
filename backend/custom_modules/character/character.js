@@ -6,20 +6,20 @@ const getCharStats = (req) => {
     if (!req.query) {
         return { success: false, message: 'request query is required' }
     }
-    const { characterId } = req.query;
-    if (!characterId) {
-        return { success: false, message: 'request query param "characterId" is required' }
+    const { id } = req.query;
+    if (!id) {
+        return { success: false, message: 'request query param "id" is required' }
     }
-    console.log(`getting character stats for ${characterId}`)
+    console.log(`getting character stats for ${id}`)
     const dbRequest = new Promise ((resolve, reject) => {
-        collections.characterStats.find({ characterId }).toArray( (err, result) => {
+        collections.characterStats.find({ id }).toArray( (err, result) => {
             if(err) {
                 resolve({ success: false, error: err})
             }
             if(result.length < 1) {
-                resolve({ success: false, message: 'characterId does not exist'})
+                resolve({ success: false, message: 'id does not exist'})
             }
-            console.log(`success: recieved data for ${characterId}`)
+            console.log(`success: recieved data for ${id}`)
             resolve({ success: true, data: {...result[0]} })
         })
     })
@@ -30,15 +30,15 @@ const newCharStats = (req) => {
     if (!req.body) {
         return { success: false, message: 'request body is required' }
     }
-    const { characterId } = req.body
-    console.log(`adding new character stats for ${characterId}`)
+    const { id } = req.body
+    console.log(`adding new character stats for ${id}`)
     const dbRequest = new Promise ((resolve, reject) => {
-        collections.characterStats.find({ characterId }).toArray( (err, result) => {
+        collections.characterStats.find({ id }).toArray( (err, result) => {
             if(err) {
                 resolve({ success: false, error: err})
             }
             if(result.length > 0) {
-                resolve({ success: false, message: `stats for ${characterId} already exist`})
+                resolve({ success: false, message: `stats for ${id} already exist`})
                 return;
             }
             collections.characterStats.insertOne(

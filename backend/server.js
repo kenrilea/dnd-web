@@ -12,7 +12,8 @@ const MongoClient = require("mongodb").MongoClient;
 const passwordCheck = require(__dirname + "/utilities/passwordCheck.js");
 const signUpPreChecks = require("./utilities/signUpPreChecks");
 const passwordHash = require("password-hash");
-const character = require('./custom_modules/character/character.js')
+const character = require('./custom_modules/character/character.js');
+const spells = require('./custom_modules/character/spells.js');
 //___________________Custom Modules___________________________
 
 //login signup
@@ -30,6 +31,7 @@ let UsersDB;
 let Collection_LoginInfo;
 let Collection_Sessions;
 let Collection_CharacterStats;
+let Collection_Spells;
 
 (async function initDB() {
   await MongoClient.connect(
@@ -43,14 +45,14 @@ let Collection_CharacterStats;
       if (err) throw err;
       UsersDB = allDbs.db("Users");
       CharactersDB = allDbs.db("Characters");
+      GameDB = allDbs.db("Game")
       Collection_LoginInfo = UsersDB.collection("LoginInfo");
       Collection_Sessions = UsersDB.collection("Sessions");
       Collection_CharacterStats = CharactersDB.collection("stats");
+      Collection_Spells = GameDB.collection("spells")
     }
   );
 })();
-
-const collections = 
 
 //_____________________MIDLEWARE_______________________
 app.use(cookieParser());
@@ -120,6 +122,11 @@ character.routes(app, upload, () => ({
   loginInfo: Collection_LoginInfo,
   sessions: Collection_Sessions,
   characterStats: Collection_CharacterStats,
+}));
+spells.routes(app, upload, () => ({
+  loginInfo: Collection_LoginInfo,
+  sessions: Collection_Sessions,
+  spells: Collection_Spells,
 }));
 
 //__________________TEST CODE_________________________
