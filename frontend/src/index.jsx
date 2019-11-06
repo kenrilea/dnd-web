@@ -3,17 +3,20 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import React, { Component } from "react";
 
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import store from "./store.js";
+import mapStateToProps from "./mapStateToProps.js";
 
 import "./styles/main.css";
 import "./styles/resetDefaults.css";
+import "./styles/stats.css";
 
 import App from "./components/App.jsx";
 
 import LandingPage from "./views/landing-page/LandingPage.jsx";
 import AutoLogin from "./components/auth/AutoLogin.jsx";
 import MonsterManager from "./views/monster-manager/MonsterManager.jsx";
+import CharacterSheet from "./views/character-sheet/CharacterSheet.jsx";
 
 let root = (
   <Provider store={store}>
@@ -27,6 +30,11 @@ let root = (
           exact={true}
           path={"/monster-manager"}
           component={MonsterManager}
+        />
+        <Route
+          exact={true}
+          path="/character-sheet"
+          component={CharacterSheet}
         />
       </Switch>
     </BrowserRouter>
