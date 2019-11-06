@@ -66,8 +66,8 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin: 3px;
   border: 2px solid white;
+  margin-left: 5px;
 }
 .hitpoint-wrapper {
   padding: 5px;

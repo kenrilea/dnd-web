@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import AddGearForm from "./AddGearForm.jsx";
 
 class DisconnectEquipment extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { adding: false };
   }
   drawGear = gearData => {
     return (
@@ -14,10 +15,19 @@ class DisconnectEquipment extends Component {
       </div>
     );
   };
+  addGear = () => {
+    this.setState({ adding: !this.state.adding });
+  };
   render = () => {
     return (
       <div className="equip-wrapper">
         Equipment:
+        <div>
+          <button onClick={this.addGear} className="button-base">
+            Add
+          </button>
+          {this.state.adding && <AddGearForm submit={this.addGear} />}
+        </div>
         <div>{this.props.equipped.map(this.drawGear)}</div>
       </div>
     );

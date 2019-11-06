@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import StatBox from "./StatBox.jsx";
+import SavingThrows from "./SavingThrows.jsx";
 
 class StatWrapper extends Component {
   constructor(props) {
@@ -24,7 +25,10 @@ class StatWrapper extends Component {
 
   render = () => {
     return (
-      <div className="stat-wrapper">{this.drawStatBoxes(this.state.stats)}</div>
+      <div className="stat-wrapper">
+        {this.drawStatBoxes(this.state.stats)}
+        <SavingThrows />
+      </div>
     );
   };
 }
