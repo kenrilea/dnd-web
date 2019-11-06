@@ -5,7 +5,6 @@ import React, { Component } from "react";
 
 import { Provider, connect } from "react-redux";
 import store from "./store.js";
-import mapStateToProps from "./mapStateToProps.js";
 
 import "./styles/main.css";
 import "./styles/resetDefaults.css";

@@ -5,6 +5,7 @@ import SkillWrapper from "./SkillWrapper.jsx";
 import CombatStats from "./CombatStats.jsx";
 import Equipment from "./Equipment.jsx";
 import Inventory from "./Inventory.jsx";
+import BasicInfo from "./BasicInfo.jsx";
 
 class CharacterSheet extends Component {
   constructor(props) {
@@ -68,6 +69,7 @@ class CharacterSheet extends Component {
     if (this.state.char) {
       return (
         <div>
+          <BasicInfo />
           <StatWrapper stats={this.state.char.stats} />
           <CombatStats
             stats={this.state.mods}
@@ -80,7 +82,7 @@ class CharacterSheet extends Component {
               stats={this.state.stats}
               pro={2}
             />
-            <Equipment equipped={this.state.char.equipment} />
+            <Equipment />
             <Inventory inventory={this.state.char.inventory} />
           </div>
         </div>
@@ -89,5 +91,7 @@ class CharacterSheet extends Component {
     return <div>Loading....</div>;
   };
 }
+
+const mapState = state => {};
 
 export default CharacterSheet;
