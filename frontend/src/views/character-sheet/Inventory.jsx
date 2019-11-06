@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CashTracker from "./CashTracker.jsx";
 
 class Inventory extends Component {
   drawItems = itemData => {
@@ -16,6 +17,7 @@ class Inventory extends Component {
     return (
       <div className="equip-wrapper">
         Inventory:
+        <CashTracker />
         <div>{this.props.inventory.map(this.drawItems)}</div>
       </div>
     );

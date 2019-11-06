@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-class Equipment extends Component {
+class DisconnectEquipment extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -22,5 +23,11 @@ class Equipment extends Component {
     );
   };
 }
+
+const mapState = state => {
+  return { equipped: state.char.equipment };
+};
+
+const Equipment = connect(mapState)(DisconnectEquipment);
 
 export default Equipment;

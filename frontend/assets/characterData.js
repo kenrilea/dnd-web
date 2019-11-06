@@ -5,6 +5,7 @@ const characterData = {
     class: "warlock",
     race: "gnome",
     alignment: { Reliability: "chaotic", Morality: "evil" },
+    level: 3,
     experincePoints: 0
   },
   stats: {

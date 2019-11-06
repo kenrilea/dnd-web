@@ -22,6 +22,16 @@
   font-size: 14px;
   font-variant: small-caps;
 }
+.char-header {
+  margin: 10px;
+}
+.char-name {
+  font-variant: small-caps;
+  font-size: 36px;
+}
+.char-race {
+  font-size: 18px;
+}
 .stat-style {
   z-index: 1;
   font-size: 28px;
@@ -125,6 +135,35 @@
   font-variant: small-caps;
   border: 2px solid white;
   width: 25%;
+  margin: 3px;
+  padding: 5px;
+}
+.cash-wrapper {
+  font-size: 14px;
+  font-variant: small-caps;
+  display: flex;
+  justify-content: center;
+}
+.cash-style {
+  text-align: center;
+  border-width: 5px;
+  border-style: solid;
+  margin: 3px;
+  padding: 5px;
+}
+.cash-button {
+  background-color: #292929;
+  color: whitesmoke;
+  font-weight: bold;
+}
+.copper-border {
+  border-color: #b87333;
+}
+.silver-border {
+  border-color: silver;
+}
+.gold-border {
+  border-color: goldenrod;
 }
 .gear-elem {
   display: flex;
