@@ -8,40 +8,35 @@ const characterData = {
     experincePoints: 0
   },
   stats: {
-    strength: 12,
-    dexterity: 14,
-    constitution: 13,
-    intelligence: 15,
-    wisdom: 10,
-    charisma: 13
+    str: 12,
+    dex: 14,
+    con: 13,
+    int: 15,
+    wis: 10,
+    cha: 13
   },
   proficiencies: ["acrobatics", "deception", "sleight-of-hand", "stealth"],
   extraProficiencies: ["disguise kit"],
-  savingThrowBonuses: ["intelligence", "wisdom", "charisma"],
+  savingThrowBonuses: [false, false, false, true, true, true],
   combatStats: {
+    saves: [false, false, false, true, true, true],
     armorClass: 12,
     initiative: 1,
     speed: 25,
     maxHealth: 14,
     currentHealth: 11,
-    temporaryHitPoints: 0,
+    bonusHealth: 0,
     hitDice: "D4",
     deathSaves: [],
     passivePerception: 10
   },
-  Weapons: [
-    { name: "Meat Cleaver", damage: "D4", type: "slashing" },
-    { name: "Paring Knife", damage: "D4", type: "piercing" },
-    { name: "Twisted Staff", damage: "D6", type: "blunt" }
+  weapons: [
+    { name: "Meat Cleaver", damage: "D4", type: "slashing", range: 2 },
+    { name: "Paring Knife", damage: "D4", type: "piercing", range: 0 },
+    { name: "Twisted Staff", damage: "D6", type: "blunt", hit: 1, range: 5 }
   ],
-  Equipment: [
+  equipment: [
     { name: "straw hat", description: "a frayed straw hat", stats: [] },
-    {
-      name: "disguise kit",
-      description:
-        "curtousy of Balfazurs Best Party Supplies: perfect for dress up parties, skipping town, an dbeing who you are not!",
-      stats: {}
-    },
     {
       name: "Pocketsezz",
       description:
@@ -50,6 +45,15 @@ const characterData = {
       subContents: ["feather", "cloth scrap", "thread", "needle"]
     }
   ],
+  inventory: [
+    {
+      name: "disguise kit",
+      description:
+        "curtousy of Balfazurs Best Party Supplies: perfect for dress up parties, skipping town, and being who you are not!",
+      stats: {}
+    }
+  ],
+  cash: { copper: 20, silver: 10, gold: 5 },
   languages: ["gnomish", "all written languages (eyes of the runekeeper)"],
   featuresAndTraits: [
     {

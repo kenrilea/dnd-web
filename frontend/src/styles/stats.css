@@ -1,0 +1,139 @@
+.stat-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.button-base {
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+}
+.stat-box-style {
+  height: 128px;
+  width: 96px;
+  border: 2px solid white;
+  text-align: center;
+}
+.stat-bg {
+  z-index: 0;
+  text-align: center;
+}
+.stat-label {
+  z-index: 1;
+  font-size: 14px;
+  font-variant: small-caps;
+}
+.stat-style {
+  z-index: 1;
+  font-size: 28px;
+  position: relative;
+  text-align: center;
+}
+.mod-style {
+  z-index: 1;
+  font-size: 56px;
+  text-align: center;
+  position: relative;
+  bottom: 0px;
+}
+.skill-wrapper {
+  margin: 2px;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 10px;
+  width: max-content;
+}
+.combat-button {
+  background-color: #292929;
+  border: 2px solid whitesmoke;
+  color: white;
+}
+.saving-throws {
+  padding: 5px;
+  width: max-content;
+  font-size: 14px;
+  font-variant: small-caps;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 3px;
+  border: 2px solid white;
+}
+.hitpoint-wrapper {
+  padding: 5px;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  margin: 3px;
+  font-variant: small-caps;
+  border: 2px solid whitesmoke;
+}
+.combat-stat-wrapper {
+  padding: 5px;
+  width: max-content;
+  font-variant: small-caps;
+  display: flex;
+  margin: 3px;
+}
+.misc-stats {
+  font-size: 30px;
+}
+.deathsave-success {
+  background-color: green;
+  color: #292929;
+  border: 1px solid white;
+}
+.deathsave-failure {
+  background-color: darkred;
+  color: #292929;
+  border: 1px solid white;
+}
+.icon {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}
+.stat-input {
+  width: 90%;
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+}
+.weapon-wrapper {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  margin: 3px;
+  font-variant: small-caps;
+  border: 2px solid whitesmoke;
+}
+.weapon-style {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.weapon-style:nth-child(even) {
+  margin: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: black;
+  border: 1px solid whitesmoke;
+  border-right: none;
+  border-left: none;
+}
+.equip-wrapper {
+  font-size: 24px;
+  font-variant: small-caps;
+  border: 2px solid white;
+  width: 25%;
+}
+.gear-elem {
+  display: flex;
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+.gear-name {
+  font-variant: small-caps;
+  font-size: 18px;
+  margin-right: 10px;
+}
