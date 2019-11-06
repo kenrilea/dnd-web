@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-class SavingThrows extends Component {
+class UnconnectedSavingThrows extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -33,5 +34,16 @@ class SavingThrows extends Component {
     );
   };
 }
+
+const mapState = state => {
+  console.log(state.char.stats);
+  return {
+    saves: state.char.savingThrowBonuses,
+    stats: state.char.mods,
+    pro: 2
+  };
+};
+
+const SavingThrows = connect(mapState)(UnconnectedSavingThrows);
 
 export default SavingThrows;

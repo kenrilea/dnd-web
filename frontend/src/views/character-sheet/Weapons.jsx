@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 //{ name: "Meat Cleaver", damage: "D4", type: "slashing" }
 
-class Weapons extends Component {
+class UnconnectedWeapons extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -29,4 +30,10 @@ class Weapons extends Component {
     );
   };
 }
+
+const mapState = state => {
+  return { weapons: state.char.weapons };
+};
+
+const Weapons = connect(mapState)(UnconnectedWeapons);
 export default Weapons;

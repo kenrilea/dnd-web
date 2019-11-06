@@ -16,6 +16,14 @@ const characterData = {
     wis: 10,
     cha: 13
   },
+  mods: {
+    str: 1,
+    dex: 2,
+    con: 1,
+    int: 2,
+    wis: 0,
+    cha: 1
+  },
   proficiencies: ["acrobatics", "deception", "sleight-of-hand", "stealth"],
   extraProficiencies: ["disguise kit"],
   savingThrowBonuses: [false, false, false, true, true, true],

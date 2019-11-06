@@ -12,12 +12,12 @@ class StatEditor extends Component {
 
   submitHandler = event => {
     event.preventDefault();
-    this.props.modifyStat(this.state.input);
+    this.props.modifyStat(this.state.input, event.target.name);
   };
   render = () => {
     return (
       <div>
-        <form onSubmit={this.submitHandler}>
+        <form onSubmit={this.submitHandler} name={this.props.name}>
           <input
             type="text"
             placeholder="amount"
