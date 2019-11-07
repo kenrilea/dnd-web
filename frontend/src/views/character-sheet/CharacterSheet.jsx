@@ -6,10 +6,8 @@ import CombatStats from "./CombatStats.jsx";
 import Equipment from "./Equipment.jsx";
 import Inventory from "./Inventory.jsx";
 import BasicInfo from "./BasicInfo.jsx";
-<<<<<<< HEAD
 import Spells from "./Spells.jsx";
-=======
->>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
+import Effects from "./Effects.jsx";
 
 class CharacterSheet extends Component {
   constructor(props) {
@@ -74,30 +72,30 @@ class CharacterSheet extends Component {
       return (
         <div>
           <BasicInfo />
-          <StatWrapper stats={this.state.char.stats} />
-          <CombatStats
-            stats={this.state.mods}
-            combatStats={this.state.char.combatStats}
-            weapons={this.state.char.weapons}
-          />
-          <div className="stat-wrapper">
-            <SkillWrapper
-              skills={this.state.skills}
-              stats={this.state.stats}
-              pro={2}
-            />
-<<<<<<< HEAD
-            <div className="flex-vertical">
-              <Equipment />
-              <Inventory />
+          <div className="horozontial-category">
+            <div>
+              <StatWrapper stats={this.state.char.stats} />
+              <CombatStats
+                stats={this.state.mods}
+                combatStats={this.state.char.combatStats}
+                weapons={this.state.char.weapons}
+              />
+              <div className="stat-wrapper">
+                <SkillWrapper
+                  skills={this.state.skills}
+                  stats={this.state.stats}
+                  pro={2}
+                />
+                <div className="flex-vertical">
+                  <Equipment />
+                  <Inventory />
+                </div>
+                <Effects />
+              </div>
             </div>
             <div>
               <Spells />
             </div>
-=======
-            <Equipment />
-            <Inventory inventory={this.state.char.inventory} />
->>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
           </div>
         </div>
       );

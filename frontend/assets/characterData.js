@@ -80,6 +80,7 @@ const characterData = {
       description: "you can read writing from any language"
     }
   ],
+  effects: [],
   spellSlots: { first: { max: 5, filled: 2 }, second: { max: 2, filled: 1 } },
   spells: [
     {

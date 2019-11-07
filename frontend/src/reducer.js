@@ -23,7 +23,6 @@ const reducer = (state, action) => {
       char: { ...state.char, weapons: [...state.char.weapons, action.item] }
     };
   }
-<<<<<<< HEAD
   if (action.type === "useSlot") {
     //console.log("restoring " + action.level + " level slot");
     let newSlots = { ...state.char.spellSlots };
@@ -35,8 +34,23 @@ const reducer = (state, action) => {
     newSlots[action.level].filled = newSlots[action.level].filled - 1;
     return { ...state, char: { ...state.char, spellSlots: newSlots } };
   }
-=======
->>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
+  if (action.type === "addTrait") {
+    let newTraits = state.char.featuresAndTraits.concat(action.data);
+    return { ...state, char: { ...state.char, featuresAndTraits: newTraits } };
+  }
+  if (action.type === "addEffect") {
+    let newEffects = state.char.effects.concat(action.data);
+    return { ...state, char: { ...state.char, effects: newEffects } };
+  }
+  if (action.type === "removeEffect") {
+    let newEffects = state.char.effects.filter(effect => {
+      if (effect.name === action.name) {
+        return false;
+      }
+      return true;
+    });
+    return { ...state, char: { ...state.char, effects: newEffects } };
+  }
   return state;
 };
 

@@ -1,24 +1,35 @@
+.no-default {
+  all: inherit;
+}
 .stat-wrapper {
   display: flex;
-  flex-wrap: wrap;
 }
-<<<<<<< HEAD
+.borderless-wrapper {
+  margin: 5px;
+}
 .horozontial-category {
   display: flex;
+  flex-wrap: wrap;
 }
 .flex-vertical {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-=======
->>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
+.quarter-width {
+  max-width: 25vw;
+}
 .button-base {
   background-color: #292929;
   border: 1px solid whitesmoke;
   color: white;
 }
-<<<<<<< HEAD
+.input-base {
+  width: 90%;
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+}
 .wrapper {
   margin: 3px;
   border: 2px solid whitesmoke;
@@ -29,8 +40,15 @@
   width: max-content;
   height: max-content;
 }
-=======
->>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
+.item-header {
+  font-size: 18px;
+  font-variant: small-caps;
+}
+.card-style {
+  margin-top: 10px;
+  border: 1px solid whitesmoke;
+  padding: 5px;
+}
 .stat-box-style {
   height: 128px;
   width: 96px;
@@ -158,25 +176,10 @@
   font-size: 24px;
   font-variant: small-caps;
   border: 2px solid white;
-<<<<<<< HEAD
   margin: 3px;
   padding: 5px;
   height: max-content;
   width: 25vw;
-}
-.equip-wrapper {
-  font-size: 24px;
-  font-variant: small-caps;
-  border: 2px solid white;
-  margin: 3px;
-  padding: 5px;
-  height: max-content;
-  width: 25vw;
-=======
-  width: 25%;
-  margin: 3px;
-  padding: 5px;
->>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
 }
 .cash-wrapper {
   font-size: 14px;
@@ -216,7 +219,6 @@
   font-size: 18px;
   margin-right: 10px;
 }
-<<<<<<< HEAD
 .spell-slot {
   margin: 5px;
   background-color: darkseagreen;
@@ -240,10 +242,20 @@
   margin: 3px;
   padding: 5px;
   height: max-content;
-  width: 25vw;
+  width: 20vw;
 }
 .spell-header {
   margin-bottom: 5px;
 }
-=======
->>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
+.spell-sidebar {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.spell-list-item:nth-child(even) {
+  background-color: black;
+}
+.spell-list-button {
+  background-color: inherit;
+  color: whitesmoke;
+  border: none;
+}

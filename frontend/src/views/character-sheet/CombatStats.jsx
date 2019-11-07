@@ -14,7 +14,7 @@ class CombatStats extends Component {
   render = () => {
     if (this.state.active) {
       return (
-        <div>
+        <div className="borderless-wrapper">
           <button onClick={this.toggle} className="combat-button">
             Hide
           </button>
@@ -55,7 +55,7 @@ class CombatStats extends Component {
       );
     }
     return (
-      <div>
+      <div className="borderless-wrapper">
         <button onClick={this.toggle} className="combat-button">
           Show Combat Stats
         </button>
