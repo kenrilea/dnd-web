@@ -2,10 +2,28 @@
   display: flex;
   flex-wrap: wrap;
 }
+.horozontial-category {
+  display: flex;
+}
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .button-base {
   background-color: #292929;
   border: 1px solid whitesmoke;
   color: white;
+}
+.wrapper {
+  margin: 3px;
+  border: 2px solid whitesmoke;
+  padding: 5px;
+}
+.min-wrapper {
+  border: 2px solid whitesmoke;
+  width: max-content;
+  height: max-content;
 }
 .stat-box-style {
   height: 128px;
@@ -134,9 +152,19 @@
   font-size: 24px;
   font-variant: small-caps;
   border: 2px solid white;
-  width: 25%;
   margin: 3px;
   padding: 5px;
+  height: max-content;
+  width: 25vw;
+}
+.equip-wrapper {
+  font-size: 24px;
+  font-variant: small-caps;
+  border: 2px solid white;
+  margin: 3px;
+  padding: 5px;
+  height: max-content;
+  width: 25vw;
 }
 .cash-wrapper {
   font-size: 14px;
@@ -175,4 +203,32 @@
   font-variant: small-caps;
   font-size: 18px;
   margin-right: 10px;
+}
+.spell-slot {
+  margin: 5px;
+  background-color: darkseagreen;
+  height: 25px;
+  width: 50px;
+  align-self: center;
+}
+.filled {
+  background-color: darkred;
+}
+.category-header {
+  font-variant: small-caps;
+  font-size: 28px;
+}
+.subcategory-header {
+  text-align: center;
+  font-size: 18px;
+  font-variant: small-caps;
+}
+.spell-detail {
+  margin: 3px;
+  padding: 5px;
+  height: max-content;
+  width: 25vw;
+}
+.spell-header {
+  margin-bottom: 5px;
 }
