@@ -23,6 +23,7 @@ const reducer = (state, action) => {
       char: { ...state.char, weapons: [...state.char.weapons, action.item] }
     };
   }
+<<<<<<< HEAD
   if (action.type === "useSlot") {
     //console.log("restoring " + action.level + " level slot");
     let newSlots = { ...state.char.spellSlots };
@@ -34,6 +35,8 @@ const reducer = (state, action) => {
     newSlots[action.level].filled = newSlots[action.level].filled - 1;
     return { ...state, char: { ...state.char, spellSlots: newSlots } };
   }
+=======
+>>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
   return state;
 };
 

@@ -6,7 +6,10 @@ import CombatStats from "./CombatStats.jsx";
 import Equipment from "./Equipment.jsx";
 import Inventory from "./Inventory.jsx";
 import BasicInfo from "./BasicInfo.jsx";
+<<<<<<< HEAD
 import Spells from "./Spells.jsx";
+=======
+>>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
 
 class CharacterSheet extends Component {
   constructor(props) {
@@ -83,6 +86,7 @@ class CharacterSheet extends Component {
               stats={this.state.stats}
               pro={2}
             />
+<<<<<<< HEAD
             <div className="flex-vertical">
               <Equipment />
               <Inventory />
@@ -90,6 +94,10 @@ class CharacterSheet extends Component {
             <div>
               <Spells />
             </div>
+=======
+            <Equipment />
+            <Inventory inventory={this.state.char.inventory} />
+>>>>>>> 8a1da0533b03a9d9526074504d8aa3adaf3eb06f
           </div>
         </div>
       );
