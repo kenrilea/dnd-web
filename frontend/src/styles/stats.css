@@ -48,6 +48,7 @@
   margin-top: 10px;
   border: 1px solid whitesmoke;
   padding: 5px;
+  max-width: 25vw;
 }
 .stat-box-style {
   height: 128px;
@@ -258,4 +259,7 @@
   background-color: inherit;
   color: whitesmoke;
   border: none;
+}
+.tooltip {
+  z-index: 10;
 }

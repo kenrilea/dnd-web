@@ -6,12 +6,15 @@ import SpellQuickView from "./SpellQuickView.jsx";
 import testSpell from "./../../../../backend/testFiles/spell.js";
 
 class UnconnectedSpells extends Component {
+  drawQuickSpells = spell => {
+    return <SpellQuickView spell={spell} />;
+  };
   render = () => {
     return (
       <div className="wrapper">
         <div className="category-header">SPELLS</div>
         <SpellSlots />
-        <SpellQuickView spell={testSpell} />
+        {this.props.preparedSpells.map(this.drawQuickSpells)}
         <SpellViewer />
       </div>
     );
@@ -19,7 +22,10 @@ class UnconnectedSpells extends Component {
 }
 
 const mapState = state => {
-  return { spells: state.char.spells, slots: state.char.spellSlots };
+  return {
+    preparedSpells: state.char.preparedSpells,
+    slots: state.char.spellSlots
+  };
 };
 
 const Spells = connect(mapState)(UnconnectedSpells);

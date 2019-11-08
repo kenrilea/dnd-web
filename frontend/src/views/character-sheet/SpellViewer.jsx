@@ -93,11 +93,21 @@ class UnconnectedSpellViewer extends Component {
       );
     });
   };
-  drawActiveDetails = spellId => {
+  drawActiveDetails = async () => {
+    if (this.props.prepared[this.state.activeSpell] === undefined) {
+      let data = new FormData();
+      data.append("query", this.state, activeSpell);
+      let res = await fetch("/spell", { method: "POST", body: data });
+      let bodJSON = await res.text();
+      let bod = JSON.parse(bod);
+      let spell = bod.spell;
+    } else {
+      let spell = this.props.prepared[this.state.activeSpell];
+    }
     return (
       <div className="spell-detail">
         <div className="spell-header">
-          <div className="subcategory-header">{this.state.activeSpell}</div>
+          <div className="subcategory-header">{spell.spell_name}</div>
           <div>Range{": " + spell.range + " "}</div>
           <div>
             Casting Time{": " + spell.casting_time + " "}Components
@@ -171,7 +181,8 @@ class UnconnectedSpellViewer extends Component {
 
 const mapState = state => {
   return {
-    levels: Object.keys(state.char.spellSlots)
+    levels: Object.keys(state.char.spellSlots),
+    prepared: state.char.preparedSpells
   };
 };
 

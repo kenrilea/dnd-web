@@ -4,7 +4,7 @@ const characterData = {
     background: "charlatan",
     class: "warlock",
     race: "gnome",
-    alignment: { Reliability: "chaotic", Morality: "evil" },
+    alignment: { reliability: "chaotic", morality: "evil" },
     level: 3,
     experincePoints: 0
   },
@@ -81,18 +81,44 @@ const characterData = {
     }
   ],
   effects: [],
-  spellSlots: { first: { max: 5, filled: 2 }, second: { max: 2, filled: 1 } },
-  spells: [
+  spellSlots: {
+    first: { max: 4, filled: 2 },
+    second: { max: 3, filled: 1 },
+    third: { max: 3, filled: 0 },
+    fourth: { max: 3, filled: 0 },
+    fifth: { max: 2, filled: 0 },
+    sixth: { max: 2, filled: 0 },
+    seventh: { max: 2, filled: 0 },
+    eighth: { max: 2, filled: 0 },
+    ninth: { max: 1, filled: 0 }
+  },
+  preparedSpells: [
     {
-      name: "Eldritch Blast",
-      type: "Evocation cantrip",
-      castingTime: "1 action",
+      spell_name: "Eldritch Blast",
+      level: "Evocation cantrip",
+      casting_time: "1 action",
       range: "120 feet",
-      toHit: "ranged attack (roll a d20 to hit)",
-      effect: "one D10 damage",
+      save: "ranged attack (roll a d20 to hit)",
+      damage: "1d10",
       levelAugments:
         "two beams at 5th level, three beams at 11th level, and four beams at 17th level",
       description: "a blast of spooky energy! (totally OP)"
+    },
+    {
+      spellId: "TEST_CHAR",
+      spell_name: "Hail of Thorns",
+      casting_time: "bonus action",
+      range: "Self",
+      save: "dexterity",
+      damage: "2d6",
+      components: ["V"],
+      duration: "Until dispelled",
+      description: `the next time you hit a creature with a 
+        ranged weapon attack before the spell ends this spell creates 
+        a rain of throns that sprouts from your ranged weapon 
+        or ammunition in addition to the normal effect of the attack, 
+        the target of the attaka dn each creature withtin 5 feet of it 
+        mush make a decterit saving throw`
     }
   ]
 };
