@@ -25,6 +25,7 @@ it("should turn an array of text lines into a usable spell object", () => {
   expect(spellParser(testLines)).toEqual({
     spellId: expect.any(String),
     spell_name: "Arcane Lock",
+    level: "second",
     casting_time: "action",
     range: "Touch",
     components: [
@@ -74,6 +75,7 @@ it("should find the damage and saving throw stat of a combat spell", () => {
   expect(spellParser(testStrings)).toEqual({
     spellId: expect.any(String),
     spell_name: "Ice Storm",
+    level: "fourth",
     casting_time: "action",
     range: "300 feet",
     save: "Dexterity",

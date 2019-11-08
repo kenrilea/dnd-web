@@ -19,6 +19,50 @@ const parseSpell = spellLines => {
     }
     return chars.join("");
   };
+  let getLevel = () => {
+    let levelLine = undefined;
+    for (let i = 0; i < spellLines.length; i++) {
+      if (!isNaN(spellLines[i][0])) {
+        levelLine = spellLines[i];
+        break;
+      }
+      if (spellLines[i].includes("cantrip")) {
+        return spellLines[i].split(" ").pop();
+      }
+      if (spellLines[i] === "lst") {
+        levelLine = spellLines[i];
+        break;
+      }
+    }
+    let lvlInt = parseInt(levelLine[0]);
+    if (isNaN(lvlInt) || lvlInt === 1) {
+      return "first";
+    }
+    if (lvlInt === 2) {
+      return "second";
+    }
+    if (lvlInt === 3) {
+      return "third";
+    }
+    if (lvlInt === 4) {
+      return "fourth";
+    }
+    if (lvlInt === 5) {
+      return "fifth";
+    }
+    if (lvlInt === 6) {
+      return "sixth";
+    }
+    if (lvlInt === 7) {
+      return "seventh";
+    }
+    if (lvlInt === 8) {
+      return "eighth";
+    }
+    if (lvlInt === 9) {
+      return "ninth";
+    }
+  };
   let parseTitle = rawTitle => {
     let words = rawTitle.split(" ");
     words = words.map(word => {
@@ -207,6 +251,7 @@ const parseSpell = spellLines => {
   };
   let spell = {
     spellId: generateId(6),
+    level: getLevel(),
     spell_name: parseTitle(spellLines[0]),
     casting_time: getCastTime(),
     range: getRange(),
