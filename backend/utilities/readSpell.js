@@ -3,8 +3,7 @@ let client = new vision.ImageAnnotatorClient();
 const fs = require("fs");
 const spellParser = require("./spellParser.js");
 
-const credentials =
-  "export GOOGLE_APPLICATION_CREDENTIALS=./cloud-vision/witf-52d1a1543c18.json";
+const credentials = "export GOOGLE_APPLICATION_CREDENTIALS=./cloud-vision/";
 
 const writeFile = (filename, data, shouldStringify) => {
   if (shouldStringify) {
@@ -28,6 +27,33 @@ const writeFile = (filename, data, shouldStringify) => {
       return;
     });
   }
+};
+
+const addToLibrary = spellObj => {
+  let libFileName = "../testFiles/spellLibrary.json";
+  fs.readFile(libFileName, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    let spellLib = JSON.parse(data);
+    if (spellLib.index.includes(spellObj.spell_name)) {
+      console.log("spell already in library");
+      return;
+    }
+    spellLib.index.push(spellObj.spell_name);
+    spellLvl = spellObj.level;
+    spellLib = { ...spellLib, [spellObj.spellId]: spellObj };
+    console.log(
+      `spell ${spellObj.spell_name} added to library as id ${spellObj.spellId}`
+    );
+    writeData = JSON.stringify(spellLib);
+    fs.writeFile(libFileName, writeData, err => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("library file written");
+    });
+  });
 };
 
 const scanToJSON = async file => {
@@ -98,7 +124,10 @@ const spellToFile = async filePath => {
   let spell = await readSpell(filePath);
   let fileName = filePath.split(".").shift();
   writeFile(fileName, spell, true);
+  addToLibrary(spell);
 };
 
 let args = process.argv.slice(2, process.argv.length);
 spellToFile(args[0]);
+
+module.exports = spellToFile;
