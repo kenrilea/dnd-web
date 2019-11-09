@@ -1,4 +1,5 @@
 // const { collections } = require('../Mongo/connect.js')
+const mongo = require('../Mongo/MongoExports.js');
 
 
 let collections = {}
@@ -56,6 +57,12 @@ const newCharStats = (req) => {
     });
     return dbRequest;
 }
+
+const characterList = () => {
+    return mongo.listCollection(collections.characterStats)
+     
+}
+
 const routes = async (app, upload, initialize) => {
     app.get('/character/stats', upload.none(), (req, res) => {
         console.log()
@@ -81,6 +88,20 @@ const routes = async (app, upload, initialize) => {
             console.log()
         })
     })
+    // ---------------------------------------------------------
+    app.get('/character/list', upload.none(), (req,res) => {
+        console.log()
+        console.log('POST: /character/stats')
+        collections = initialize()
+        console.log('recieved')
+        const dbResult = characterList(req);
+        dbResult.then(result => {
+            console.log(result)
+            res.send(JSON.stringify(result))
+            console.log('request complete')
+            console.log()
+        })
+    });
 }
 
 
