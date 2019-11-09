@@ -33,6 +33,7 @@
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
     "loader": "^2.1.1",
+    "ramda": "^0.26.1",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
