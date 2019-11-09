@@ -261,5 +261,14 @@
   border: none;
 }
 .tooltip {
+  position: absolute;
+  background-color: #292929;
   z-index: 10;
+  padding: 1em;
+  border-style: solid;
+  border-width: 1px;
+  max-width: 300px;
+  max-height: 300px;
+  overflow: hidden;
+  overflow-y: auto;
 }

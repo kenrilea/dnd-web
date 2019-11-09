@@ -28,3 +28,6 @@ body {
   border-width: 2px;
   border-color: rgb(198, 208, 218);
 }
+.page-view{
+  padding-bottom: 400px;
+}
