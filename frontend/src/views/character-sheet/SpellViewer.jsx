@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import spell from "../../../../backend/testFiles/spell.js";
+import spellLibrary from "";
 import spellNames from "../../../assets/druidSpells.js";
 /*
 spell = {
@@ -45,6 +46,7 @@ class UnconnectedSpellViewer extends Component {
   viewSpellDetail = event => {
     this.setState({ activeSpell: event.target.name });
   };
+  getSpellData = spellId => {};
   drawSpells = () => {
     let filterSpellsLevel = () => {
       if (this.state.displayFilter === undefined) {
