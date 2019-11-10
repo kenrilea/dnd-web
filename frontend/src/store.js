@@ -1,10 +1,10 @@
 import { createStore } from "redux";
 import reducer from "./reducer.js";
-import testData from "../assets/characterData.js";
+import characterData from "../assets/characterData.js";
 
 const initialState = {
   stateExists: true,
-  characterData: testData,
+  char: characterData,
   loggedIn: false
 };
 

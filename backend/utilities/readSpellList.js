@@ -59,11 +59,7 @@ const addToLibrary = spellObj => {
 const scanToJSON = async file => {
   console.log("sending " + file);
   let sendTime = new Date().getTime();
-<<<<<<< HEAD
   let scanResult = await client.textDetection(file);
-=======
-  let scanResult = await client.testDetection(file);
->>>>>>> master
   console.log("file returned in " + new Date().getTime() - sendTime + " ms");
   let scanOutput = scanResult.map(result => {
     let output = result.fullTextAnnotation;

@@ -1,8 +1,10 @@
 const spell = {
   spellId: "TEST_CHAR",
   spell_name: "Hail of Thorns",
-  casting_time: "1 bonus action",
+  casting_time: "bonus action",
   range: "Self",
+  save: "dexterity",
+  damage: "2d6",
   components: ["V"],
   duration: "Until dispelled",
   description: `the next time you hit a creature with a 
@@ -12,5 +14,5 @@ const spell = {
     the target of the attaka dn each creature withtin 5 feet of it 
     mush make a decterit saving throw`
 };
-
-module.exports = { spell };
+//module.exports = { spell };
+export default spell;

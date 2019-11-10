@@ -1,0 +1,274 @@
+.no-default {
+  all: inherit;
+}
+.stat-wrapper {
+  display: flex;
+}
+.borderless-wrapper {
+  margin: 5px;
+}
+.horozontial-category {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.quarter-width {
+  max-width: 25vw;
+}
+.button-base {
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+}
+.input-base {
+  width: 90%;
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+}
+.wrapper {
+  margin: 3px;
+  border: 2px solid whitesmoke;
+  padding: 5px;
+}
+.min-wrapper {
+  border: 2px solid whitesmoke;
+  width: max-content;
+  height: max-content;
+}
+.item-header {
+  font-size: 18px;
+  font-variant: small-caps;
+}
+.card-style {
+  margin-top: 10px;
+  border: 1px solid whitesmoke;
+  padding: 5px;
+  max-width: 25vw;
+}
+.stat-box-style {
+  height: 128px;
+  width: 96px;
+  border: 2px solid white;
+  text-align: center;
+}
+.stat-bg {
+  z-index: 0;
+  text-align: center;
+}
+.stat-label {
+  z-index: 1;
+  font-size: 14px;
+  font-variant: small-caps;
+}
+.char-header {
+  margin: 10px;
+}
+.char-name {
+  font-variant: small-caps;
+  font-size: 36px;
+}
+.char-race {
+  font-size: 18px;
+}
+.stat-style {
+  z-index: 1;
+  font-size: 28px;
+  position: relative;
+  text-align: center;
+}
+.mod-style {
+  z-index: 1;
+  font-size: 56px;
+  text-align: center;
+  position: relative;
+  bottom: 0px;
+}
+.skill-wrapper {
+  margin: 2px;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 10px;
+  width: max-content;
+}
+.combat-button {
+  background-color: #292929;
+  border: 2px solid whitesmoke;
+  color: white;
+}
+.saving-throws {
+  padding: 5px;
+  width: max-content;
+  font-size: 14px;
+  font-variant: small-caps;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid white;
+  margin-left: 5px;
+}
+.hitpoint-wrapper {
+  padding: 5px;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  margin: 3px;
+  font-variant: small-caps;
+  border: 2px solid whitesmoke;
+}
+.combat-stat-wrapper {
+  padding: 5px;
+  width: max-content;
+  font-variant: small-caps;
+  display: flex;
+  margin: 3px;
+}
+.misc-stats {
+  font-size: 30px;
+}
+.deathsave-success {
+  background-color: green;
+  color: #292929;
+  border: 1px solid white;
+}
+.deathsave-failure {
+  background-color: darkred;
+  color: #292929;
+  border: 1px solid white;
+}
+.icon {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}
+.stat-input {
+  width: 90%;
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+}
+.weapon-wrapper {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  margin: 3px;
+  font-variant: small-caps;
+  border: 2px solid whitesmoke;
+}
+.weapon-style {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.weapon-style:nth-child(even) {
+  margin: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: black;
+  border: 1px solid whitesmoke;
+  border-right: none;
+  border-left: none;
+}
+.equip-wrapper {
+  font-size: 24px;
+  font-variant: small-caps;
+  border: 2px solid white;
+  margin: 3px;
+  padding: 5px;
+  height: max-content;
+  width: 25vw;
+}
+.cash-wrapper {
+  font-size: 14px;
+  font-variant: small-caps;
+  display: flex;
+  justify-content: center;
+}
+.cash-style {
+  text-align: center;
+  border-width: 5px;
+  border-style: solid;
+  margin: 3px;
+  padding: 5px;
+}
+.cash-button {
+  background-color: #292929;
+  color: whitesmoke;
+  font-weight: bold;
+}
+.copper-border {
+  border-color: #b87333;
+}
+.silver-border {
+  border-color: silver;
+}
+.gold-border {
+  border-color: goldenrod;
+}
+.gear-elem {
+  display: flex;
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+.gear-name {
+  font-variant: small-caps;
+  font-size: 18px;
+  margin-right: 10px;
+}
+.spell-slot {
+  margin: 5px;
+  background-color: darkseagreen;
+  height: 25px;
+  width: 50px;
+  align-self: center;
+}
+.filled {
+  background-color: darkred;
+}
+.category-header {
+  font-variant: small-caps;
+  font-size: 28px;
+}
+.subcategory-header {
+  text-align: center;
+  font-size: 18px;
+  font-variant: small-caps;
+}
+.spell-detail {
+  margin: 3px;
+  padding: 5px;
+  height: max-content;
+  width: 20vw;
+}
+.spell-header {
+  margin-bottom: 5px;
+}
+.spell-sidebar {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.spell-list-item:nth-child(even) {
+  background-color: black;
+}
+.spell-list-button {
+  background-color: inherit;
+  color: whitesmoke;
+  border: none;
+}
+.tooltip {
+  position: absolute;
+  background-color: #292929;
+  z-index: 10;
+  padding: 1em;
+  border-style: solid;
+  border-width: 1px;
+  max-width: 300px;
+  max-height: 300px;
+  overflow: hidden;
+  overflow-y: auto;
+}
