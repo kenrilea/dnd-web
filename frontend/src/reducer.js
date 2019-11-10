@@ -51,6 +51,15 @@ const reducer = (state, action) => {
     });
     return { ...state, char: { ...state.char, effects: newEffects } };
   }
+  if (action.type === "prepareSpell") {
+    return {
+      ...state,
+      char: {
+        ...state.char,
+        preparedSpells: state.char.preparedSpells.concat(newSpell)
+      }
+    };
+  }
   return state;
 };
 

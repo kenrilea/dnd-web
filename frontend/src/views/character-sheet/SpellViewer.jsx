@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import spell from "../../../../backend/testFiles/spell.js";
+import testSpell from "../../../../backend/testFiles/spell.js";
 import spellNames from "../../../assets/druidSpells.js";
 /*
 spell = {
@@ -45,6 +45,17 @@ class UnconnectedSpellViewer extends Component {
   viewSpellDetail = event => {
     this.setState({ activeSpell: event.target.name });
   };
+  prepareSpell = () => {
+    if (this.props.prepared.length >= this.props.maxPrepared) {
+      window.alert("You already have the maximum number of spells prepared");
+      return;
+    }
+    this.props.dispatch({
+      type: "prepareSpell",
+      spellId: this.state.activeSpell
+    });
+  };
+  getSpellData = spellId => {};
   drawSpells = () => {
     let filterSpellsLevel = () => {
       if (this.state.displayFilter === undefined) {
@@ -81,7 +92,7 @@ class UnconnectedSpellViewer extends Component {
               <div className="spell-list-item">
                 <button
                   onClick={this.viewSpellDetail}
-                  name={spell}
+                  name={spell.spellId}
                   className="spell-list-button"
                 >
                   {spell}
@@ -93,16 +104,20 @@ class UnconnectedSpellViewer extends Component {
       );
     });
   };
-  drawActiveDetails = async () => {
+  drawActiveDetails = () => {
+    let spell = undefined;
     if (this.props.prepared[this.state.activeSpell] === undefined) {
+      spell = testSpell;
+      /*
       let data = new FormData();
       data.append("query", this.state, activeSpell);
       let res = await fetch("/spell", { method: "POST", body: data });
       let bodJSON = await res.text();
       let bod = JSON.parse(bod);
-      let spell = bod.spell;
+      spell = bod.spell;
+      */
     } else {
-      let spell = this.props.prepared[this.state.activeSpell];
+      spell = this.props.prepared[this.state.activeSpell];
     }
     return (
       <div className="spell-detail">
@@ -120,6 +135,13 @@ class UnconnectedSpellViewer extends Component {
           </div>
         </div>
         <div>{spell.description}</div>
+        <button
+          className="button-base"
+          name={spell.spellId}
+          onClick={this.prepareSpell}
+        >
+          Prepare Spell
+        </button>
       </div>
     );
   };
@@ -182,7 +204,10 @@ class UnconnectedSpellViewer extends Component {
 const mapState = state => {
   return {
     levels: Object.keys(state.char.spellSlots),
-    prepared: state.char.preparedSpells
+    prepared: state.char.preparedSpells,
+    innate: state.char.innateSpells,
+    maxPrepared: state.char.maxPrepared,
+    maxKnown: state.char.maxKnown
   };
 };
 
