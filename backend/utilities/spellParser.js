@@ -126,10 +126,13 @@ const parseSpell = spellLines => {
     let found = spellLines.filter(line => {
       let words = line.split(" ");
       if (words[0].includes("Components")) {
+        console.log("component start: " + words);
         if (line.includes("(")) {
+          console.log("toggle on");
           toggle = true;
+        } else {
+          return true;
         }
-        return true;
       }
       if (line.includes(")") && toggle) {
         toggle = false;
@@ -202,6 +205,9 @@ const parseSpell = spellLines => {
       }
     }
     //console.log(words[saveIndex] + " saving throw");
+    if (words[saveIndex] === undefined) {
+      return "None";
+    }
     return words[saveIndex];
   };
   const getDamage = description => {
@@ -223,7 +229,6 @@ const parseSpell = spellLines => {
       let word = words[i];
       if (!isNaN(word[0])) {
         if (isNaN(word)) {
-          console.log(word);
           if (checkIsDice(word)) {
             //console.log(word);
             if (isBaseDmg) {
@@ -249,6 +254,20 @@ const parseSpell = spellLines => {
     }
     return damage;
   };
+  const cropText = () => {
+    let startIndex = 0;
+    for (let i = 0; i < spellLines.length; i++) {
+      if (spellLines[i] === spellLines[i].toUpperCase()) {
+        console.log("allcaps at line " + i);
+        startIndex = i;
+        break;
+      }
+    }
+    return spellLines.slice(startIndex, spellLines.length);
+  };
+  spellLines = cropText();
+  console.log("cropped lines:");
+  console.log(spellLines);
   let spell = {
     spellId: generateId(6),
     level: getLevel(),

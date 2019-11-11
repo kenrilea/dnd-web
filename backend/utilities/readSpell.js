@@ -97,13 +97,12 @@ const scanToJSON = async file => {
     console.log(output);
     return output;
   });
-
   let scanTextLines = processScan(scanOutput);
   //let fileName = __dirname + "/rawDruidSpells.js";
   let outputFileName = file.split(".").shift();
   outputFileName = outputFileName.split("/").pop();
   fs.writeFile(
-    __dirname + "/spell-files/" + outputFileName + ".json",
+    __dirname + "/spell-text/" + outputFileName + ".json",
     JSON.stringify(scanTextLines),
     err => {
       if (err) {
@@ -164,12 +163,40 @@ const spellToFile = async filePath => {
 };
 
 let args = process.argv.slice(2, process.argv.length);
-if (args[0] === "--all") {
+if (args[0] === "--scan") {
   fs.readdir(__dirname + "/spell-images", (err, files) => {
     if (err) {
       console.log(err);
       return;
     }
+    if (args[1] === "-n") {
+      let imgNames = files.map(file => {
+        file = file.split("/").pop();
+        return file.split(".").shift();
+      });
+      let newFiles = [];
+      let txtfiles = fs.readdirSync(__dirname + "/spell-text");
+      let textNames = txtfiles.map(file => {
+        file = file.split("/").pop();
+        return file.split(".").shift();
+      });
+      newFiles = imgNames.filter(name => {
+        if (textNames.includes(name)) {
+          return false;
+        }
+        return true;
+      });
+      console.log("new files found:");
+      files = files.filter(fileName => {
+        let name = fileName.split(".").shift();
+        if (newFiles.includes(name)) {
+          return true;
+        }
+        return false;
+      });
+      console.log(files);
+    }
+
     console.log("breaking spells folder");
     let batchNum = files.length / 5;
     if (files.length % batchNum > 0) {
@@ -200,14 +227,17 @@ if (args[0] === "--update-library") {
     }
     spellLib = JSON.parse(data);
     LibIsOpen = true;
-    fs.readdir(__dirname + "/spells/", async (err, files) => {
+    if (args[1] === "overwriting") {
+      spellLib.index = [];
+    }
+    fs.readdir(__dirname + "/spell-files/", async (err, files) => {
       if (err) {
         console.log(err);
       }
       let spellFiles = files;
       let allSpells = spellFiles.map(fileName => {
         let FileString = fs.readFileSync(
-          __dirname + "/spells/" + fileName,
+          __dirname + "/spell-files/" + fileName,
           "utf8"
         );
         return JSON.parse(FileString);
@@ -248,6 +278,38 @@ if (args[0] === "--update-library") {
         console.log("library updated @" + libFileName);
       });
     });
+  });
+}
+if (args[0] === "--parse-files") {
+  fs.readdir(__dirname + "/spell-text/", (err, files) => {
+    if (err) {
+      console.log(err);
+    }
+    let spells = files.map(fileName => {
+      console.log("opening" + fileName);
+      return fs.readFileSync(__dirname + "/spell-text/" + fileName, "utf8");
+    });
+    spells = spells.map(spell => {
+      return JSON.parse(spell);
+    });
+    spells = spells.map(spellParser);
+    spells = spells.map(spell => {
+      return JSON.stringify(spell);
+    });
+    for (let i = 0; i < spells.length; i++) {
+      let fileName = files[i].split("/").pop();
+      fileName = fileName.split(".").shift();
+      fs.writeFile(
+        __dirname + "/spell-files/" + fileName + ".json",
+        spells[i],
+        err => {
+          if (err) {
+            console.log(err);
+          }
+          console.log(fileName + "written to file");
+        }
+      );
+    }
   });
 } else {
   console.log("unknown command");
