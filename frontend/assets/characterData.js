@@ -94,6 +94,7 @@ const characterData = {
   },
   preparedSpells: [
     {
+      spellId: "ghalof",
       spell_name: "Eldritch Blast",
       level: "Evocation cantrip",
       casting_time: "1 action",

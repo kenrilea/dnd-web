@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 
-const upload = multer();
+const upload = multer({ dest: __dirname + "/uploads" });
 
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -12,8 +12,8 @@ const MongoClient = require("mongodb").MongoClient;
 const passwordCheck = require(__dirname + "/utilities/passwordCheck.js");
 const signUpPreChecks = require("./utilities/signUpPreChecks");
 const passwordHash = require("password-hash");
-const character = require('./custom_modules/character/character.js');
-const spells = require('./custom_modules/character/spells.js');
+const character = require("./custom_modules/character/character.js");
+const spells = require("./custom_modules/character/spells.js");
 //___________________Custom Modules___________________________
 
 //login signup
@@ -45,11 +45,11 @@ let Collection_Spells;
       if (err) throw err;
       UsersDB = allDbs.db("Users");
       CharactersDB = allDbs.db("Characters");
-      GameDB = allDbs.db("Game")
+      GameDB = allDbs.db("Game");
       Collection_LoginInfo = UsersDB.collection("LoginInfo");
       Collection_Sessions = UsersDB.collection("Sessions");
       Collection_CharacterStats = CharactersDB.collection("stats");
-      Collection_Spells = GameDB.collection("spells")
+      Collection_Spells = GameDB.collection("spells");
     }
   );
 })();
@@ -89,7 +89,6 @@ app.post("/signup", upload.none(), (req, res) => {
   );
 });
 
-
 //AutoLogin
 app.post("/auto-login", upload.none(), (req, res) => {
   console.log(req.cookies.sid);
@@ -121,12 +120,12 @@ app.post("/login", upload.none(), (req, res) => {
 character.routes(app, upload, () => ({
   loginInfo: Collection_LoginInfo,
   sessions: Collection_Sessions,
-  characterStats: Collection_CharacterStats,
+  characterStats: Collection_CharacterStats
 }));
 spells.routes(app, upload, () => ({
   loginInfo: Collection_LoginInfo,
   sessions: Collection_Sessions,
-  spells: Collection_Spells,
+  spells: Collection_Spells
 }));
 
 //__________________TEST CODE_________________________

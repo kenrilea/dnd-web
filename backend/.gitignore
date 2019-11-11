@@ -21,3 +21,4 @@ yarn-lock.json
 
 /utilities/databaseURI.js
 /utilities/cloud-vision
+/utilities/spell-images
