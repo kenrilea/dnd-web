@@ -56,8 +56,20 @@ const reducer = (state, action) => {
       ...state,
       char: {
         ...state.char,
-        preparedSpells: state.char.preparedSpells.concat(newSpell)
+        preparedSpells: state.char.preparedSpells.concat(action.newSpell)
       }
+    };
+  }
+  if (action.type === "unprepareSpell") {
+    let filteredSpells = state.char.preparedSpells.filter(spellObj => {
+      if (spellObj.spellId === action.id) {
+        return false;
+      }
+      return true;
+    });
+    return {
+      ...state,
+      char: { ...state.char, preparedSpells: filteredSpells }
     };
   }
   return state;

@@ -2,22 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import testSpell from "../../../../backend/testFiles/spell.js";
 import spellNames from "../../../assets/druidSpells.js";
-/*
-spell = {
-    "spellId": "TEST_CHAR",
-    "spell_name": "Hail of Thorns",
-    "casting_time": "1 bonus action",
-    "range": "Self",
-    "components": ["V"],
-    "duration": "Until dispelled",
-    description: `the next time you hit a creature with a 
-    ranged weapon attack before the spell ends this spell creates 
-    a rain of throns that sprouts from your ranged weapon 
-    or ammunition in addition to the normal effect of the attack, 
-    the target of the attaka dn each creature withtin 5 feet of it 
-    mush make a decterit saving throw`
-}
-*/
+import testLibrary from "../../../assets/testLibrary.js";
+
+const unknownSpell = {
+  spellId: "undefined",
+  spell_name: "Hail of Thorns",
+  casting_time: "bonus action",
+  range: "Self",
+  components: [],
+  duration: "Until dispelled",
+  description: `spell could not be found`
+};
 
 class UnconnectedSpellViewer extends Component {
   constructor(props) {
@@ -25,7 +20,8 @@ class UnconnectedSpellViewer extends Component {
     this.state = {
       expanded: false,
       displayFilter: undefined,
-      activeSpell: "spell_id"
+      displayTime: undefined,
+      activeSpell: this.props.prepared[0].spellId
     };
   }
   drawLevelDropdown = () => {
@@ -50,16 +46,17 @@ class UnconnectedSpellViewer extends Component {
       window.alert("You already have the maximum number of spells prepared");
       return;
     }
+    let newPrep = testLibrary[this.state.activeSpell];
     this.props.dispatch({
       type: "prepareSpell",
-      spellId: this.state.activeSpell
+      newSpell: newPrep
     });
   };
   getSpellData = spellId => {};
   drawSpells = () => {
     let filterSpellsLevel = () => {
       if (this.state.displayFilter === undefined) {
-        return Object.keys(spellNames);
+        return Object.keys(testLibrary.searchLib);
       }
       if (this.state.displayFilter === "haveLevel") {
         return this.props.levels;
@@ -70,20 +67,19 @@ class UnconnectedSpellViewer extends Component {
       if (this.state.displayTime === undefined) {
         return true;
       }
-      //if (this.state.displayTime === "other") {
-      //return !spell.casting_time.includes("action");
-      //}
-      if (spell.casting_time === this.state.displayTime) {
+      if (this.state.displayTime === "other") {
+        return !spell.time.includes("action");
+      }
+      if (spell.time === this.state.displayTime) {
         return true;
       }
       return false;
     };
     let displayedLevels = filterSpellsLevel();
     return displayedLevels.map(level => {
-      let displayedSpells = spellNames[level];
-      displayedSpells = displayedSpells.filter(spell => {
-        return true;
-      });
+      let displayedSpells = testLibrary.searchLib[level].filter(
+        filterSpellsTime
+      );
       return (
         <div>
           <div className="subcategory-header">{level}</div>
@@ -92,10 +88,10 @@ class UnconnectedSpellViewer extends Component {
               <div className="spell-list-item">
                 <button
                   onClick={this.viewSpellDetail}
-                  name={spell.spellId}
+                  name={spell.id}
                   className="spell-list-button"
                 >
-                  {spell}
+                  {spell.name}
                 </button>
               </div>
             );
@@ -107,7 +103,11 @@ class UnconnectedSpellViewer extends Component {
   drawActiveDetails = () => {
     let spell = undefined;
     if (this.props.prepared[this.state.activeSpell] === undefined) {
-      spell = testSpell;
+      if (testLibrary[this.state.activeSpell] === undefined) {
+        spell = unknownSpell;
+      } else {
+        spell = testLibrary[this.state.activeSpell];
+      }
       /*
       let data = new FormData();
       data.append("query", this.state, activeSpell);
@@ -149,7 +149,6 @@ class UnconnectedSpellViewer extends Component {
     this.setState({ expanded: !this.state.expanded });
   };
   render = () => {
-    console.log(this.state.activeSpell);
     if (this.state.expanded) {
       return (
         <div>
