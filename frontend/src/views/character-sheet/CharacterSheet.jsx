@@ -70,7 +70,7 @@ class CharacterSheet extends Component {
   render = () => {
     if (this.state.char) {
       return (
-        <div>
+        <div className='page-view'>
           <BasicInfo />
           <div className="horozontial-category">
             <div>
