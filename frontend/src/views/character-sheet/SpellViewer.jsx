@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import testSpell from "../../../../backend/testFiles/spell.js";
+=======
+import spell from "../../../../backend/testFiles/spell.js";
+import spellLibrary from "";
+>>>>>>> master
 import spellNames from "../../../assets/druidSpells.js";
 import testLibrary from "../../../assets/testLibrary.js";
 
@@ -41,6 +46,7 @@ class UnconnectedSpellViewer extends Component {
   viewSpellDetail = event => {
     this.setState({ activeSpell: event.target.name });
   };
+<<<<<<< HEAD
   prepareSpell = () => {
     if (this.props.prepared.length >= this.props.maxPrepared) {
       window.alert("You already have the maximum number of spells prepared");
@@ -52,6 +58,8 @@ class UnconnectedSpellViewer extends Component {
       newSpell: newPrep
     });
   };
+=======
+>>>>>>> master
   getSpellData = spellId => {};
   drawSpells = () => {
     let filterSpellsLevel = () => {

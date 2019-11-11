@@ -14,6 +14,5 @@ const spell = {
     the target of the attaka dn each creature withtin 5 feet of it 
     mush make a decterit saving throw`
 };
-
 //module.exports = { spell };
 export default spell;
