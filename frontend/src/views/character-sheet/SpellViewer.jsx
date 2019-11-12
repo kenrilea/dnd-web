@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-<<<<<<< HEAD
-import testSpell from "../../../../backend/testFiles/spell.js";
-=======
-import spell from "../../../../backend/testFiles/spell.js";
-import spellLibrary from "";
->>>>>>> master
-import spellNames from "../../../assets/druidSpells.js";
 import testLibrary from "../../../assets/testLibrary.js";
 
 const unknownSpell = {
   spellId: "undefined",
-  spell_name: "Hail of Thorns",
-  casting_time: "bonus action",
-  range: "Self",
+  spell_name: "Cannot find spell",
+  casting_time: "N/A",
+  range: "N/A",
   components: [],
   duration: "Until dispelled",
   description: `spell could not be found`
@@ -26,7 +19,7 @@ class UnconnectedSpellViewer extends Component {
       expanded: false,
       displayFilter: undefined,
       displayTime: undefined,
-      activeSpell: this.props.prepared[0].spellId
+      activeSpell: unknownSpell
     };
   }
   drawLevelDropdown = () => {
@@ -46,7 +39,6 @@ class UnconnectedSpellViewer extends Component {
   viewSpellDetail = event => {
     this.setState({ activeSpell: event.target.name });
   };
-<<<<<<< HEAD
   prepareSpell = () => {
     if (this.props.prepared.length >= this.props.maxPrepared) {
       window.alert("You already have the maximum number of spells prepared");
@@ -58,13 +50,32 @@ class UnconnectedSpellViewer extends Component {
       newSpell: newPrep
     });
   };
-=======
->>>>>>> master
-  getSpellData = spellId => {};
+  getSpellData = async spellId => {
+    let data = new FormData();
+    data.append("query", { id: this.state.activeSpell });
+    let res = await fetch("/spell", { method: "GET", body: data });
+    let bodJSON = await res.text();
+    let bod = JSON.parse(bodJSON);
+    console.log(bod);
+    return bod.spell;
+  };
   drawSpells = () => {
+    const filterClassSpells = () => {
+      let classLib = {};
+      let classLvls = Object.keys(this.props.classSpells);
+      classLvls.forEach(lvl => {
+        classLib[lvl] = testLibrary.searchLib[lvl].filter(spellData => {
+          if (this.props.classSpells[lvl].includes(spellData.name)) {
+            return true;
+          }
+          return false;
+        });
+      });
+      return classLib;
+    };
     let filterSpellsLevel = () => {
       if (this.state.displayFilter === undefined) {
-        return Object.keys(testLibrary.searchLib);
+        return Object.keys(this.props.classSpells);
       }
       if (this.state.displayFilter === "haveLevel") {
         return this.props.levels;
@@ -83,11 +94,10 @@ class UnconnectedSpellViewer extends Component {
       }
       return false;
     };
+    let classLib = filterClassSpells();
     let displayedLevels = filterSpellsLevel();
     return displayedLevels.map(level => {
-      let displayedSpells = testLibrary.searchLib[level].filter(
-        filterSpellsTime
-      );
+      let displayedSpells = classLib[level].filter(filterSpellsTime);
       return (
         <div>
           <div className="subcategory-header">{level}</div>
@@ -116,14 +126,6 @@ class UnconnectedSpellViewer extends Component {
       } else {
         spell = testLibrary[this.state.activeSpell];
       }
-      /*
-      let data = new FormData();
-      data.append("query", this.state, activeSpell);
-      let res = await fetch("/spell", { method: "POST", body: data });
-      let bodJSON = await res.text();
-      let bod = JSON.parse(bod);
-      spell = bod.spell;
-      */
     } else {
       spell = this.props.prepared[this.state.activeSpell];
     }
@@ -214,7 +216,8 @@ const mapState = state => {
     prepared: state.char.preparedSpells,
     innate: state.char.innateSpells,
     maxPrepared: state.char.maxPrepared,
-    maxKnown: state.char.maxKnown
+    maxKnown: state.char.maxKnown,
+    classSpells: state.char.classSpells
   };
 };
 

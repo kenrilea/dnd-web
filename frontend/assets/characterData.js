@@ -83,14 +83,7 @@ const characterData = {
   effects: [],
   spellSlots: {
     first: { max: 4, filled: 2 },
-    second: { max: 3, filled: 1 },
-    third: { max: 3, filled: 0 },
-    fourth: { max: 3, filled: 0 },
-    fifth: { max: 2, filled: 0 },
-    sixth: { max: 2, filled: 0 },
-    seventh: { max: 2, filled: 0 },
-    eighth: { max: 2, filled: 0 },
-    ninth: { max: 1, filled: 0 }
+    second: { max: 3, filled: 1 }
   },
   maxPrepared: 5,
   maxKnown: 999,

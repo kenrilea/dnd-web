@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import characterData from "../../../assets/characterData.js";
+import { connect } from "react-redux";
 import StatWrapper from "./StatWrapper.jsx";
 import SkillWrapper from "./SkillWrapper.jsx";
 import CombatStats from "./CombatStats.jsx";
@@ -9,7 +9,7 @@ import BasicInfo from "./BasicInfo.jsx";
 import Spells from "./Spells.jsx";
 import Effects from "./Effects.jsx";
 
-class CharacterSheet extends Component {
+class UnconnectedCharacterSheet extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,12 +34,6 @@ class CharacterSheet extends Component {
       ]
     };
   }
-  loadChar = async () => {
-    let charData = characterData;
-    console.log(charData);
-    let mods = this.generateMods(charData.stats);
-    this.setState({ char: charData, stats: charData.stats, mods: mods });
-  };
   generateMods = statsObj => {
     let statToMod = stat => {
       let mod = stat - 10;
@@ -62,48 +56,60 @@ class CharacterSheet extends Component {
     return statMods;
   };
 
-  componentDidMount = () => {
-    console.log("getting character stats");
-    this.loadChar();
+  saveChar = () => {
+    let data = new FormData();
+    console.log("adding char id to form " + this.props.char.baseInfo.id);
+    data.append("id", this.props.char.baseInfo.id);
+    let charData = JSON.stringify(this.props.char);
+    data.append("charData", charData);
+    fetch("http://localhost:4000/test/save-char", {
+      method: "POST",
+      body: data
+    });
   };
 
   render = () => {
-    if (this.state.char) {
-      return (
-        <div className='page-view'>
-          <BasicInfo />
-          <div className="horozontial-category">
-            <div>
-              <StatWrapper stats={this.state.char.stats} />
-              <CombatStats
-                stats={this.state.mods}
-                combatStats={this.state.char.combatStats}
-                weapons={this.state.char.weapons}
+    if (this.props.char === undefined) {
+      return <div>Loading....</div>;
+    }
+    this.saveChar();
+    return (
+      <div className="page-view">
+        <BasicInfo />
+        <div className="horozontial-category">
+          <div>
+            <StatWrapper stats={this.props.char.stats} />
+            <CombatStats
+              stats={this.props.char.mods}
+              combatStats={this.props.char.combatStats}
+              weapons={this.props.char.weapons}
+            />
+            <div className="stat-wrapper">
+              <SkillWrapper
+                skills={this.state.skills}
+                stats={this.props.char.stats}
+                pro={2}
               />
-              <div className="stat-wrapper">
-                <SkillWrapper
-                  skills={this.state.skills}
-                  stats={this.state.stats}
-                  pro={2}
-                />
-                <div className="flex-vertical">
-                  <Equipment />
-                  <Inventory />
-                </div>
-                <Effects />
+              <div className="flex-vertical">
+                <Equipment />
+                <Inventory />
               </div>
-            </div>
-            <div>
-              <Spells />
+              <Effects />
             </div>
           </div>
+          <div>
+            <Spells />
+          </div>
         </div>
-      );
-    }
-    return <div>Loading....</div>;
+      </div>
+    );
   };
 }
 
-const mapState = state => {};
+const mapState = state => {
+  return { char: state.char };
+};
+
+const CharacterSheet = connect(mapState)(UnconnectedCharacterSheet);
 
 export default CharacterSheet;

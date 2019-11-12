@@ -1,5 +1,5 @@
-const testChars = [
-  {
+const testChars = {
+  amgkdl: {
     baseInfo: {
       id: "amgkdl",
       name: "herky nackle",
@@ -28,7 +28,7 @@ const testChars = [
     },
     proficiencies: ["acrobatics", "deception", "sleight-of-hand", "stealth"],
     extraProficiencies: ["disguise kit"],
-    savingThrowBonuses: [false, false, false, true, true, true],
+    savingThrowPros: [false, false, false, true, true, true],
     combatStats: {
       saves: [false, false, false, true, true, true],
       armorClass: 12,
@@ -123,7 +123,7 @@ const testChars = [
     ],
     innateSpells: []
   },
-  {
+  fjkalf: {
     baseInfo: {
       id: "fjkalf",
       name: "Raymond Laflamme",
@@ -145,12 +145,12 @@ const testChars = [
       cha: 13
     },
     mods: {
-      str: 12,
-      dex: 14,
-      con: 13,
-      int: 15,
-      wis: 10,
-      cha: 13
+      str: 2,
+      dex: 4,
+      con: 3,
+      int: 5,
+      wis: 0,
+      cha: 3
     },
     skillPros: [],
     otherPros: [],
@@ -175,7 +175,159 @@ const testChars = [
     effects: [],
     spellSlots: { first: { max: 4, filled: 0 }, second: { max: 2, filled: 0 } },
     preparedSpells: [],
-    innateSpells: []
+    innateSpells: [],
+    classSpells: {
+      cantrip: [
+        "Guidance",
+        "Light",
+        "Mending",
+        "Resistance",
+        "Sacred Flame",
+        "Spare the Dying",
+        "Thaumaturgy"
+      ],
+      first: [
+        "Bane",
+        "Bless",
+        "Command",
+        "Create or Destroy Water",
+        "Cure Wounds",
+        "Detect Evil and Good",
+        "Detect Magic",
+        "Detect Poison and Disease",
+        "Guiding Bolt",
+        "Healing Word",
+        "Inflict Wounds",
+        "Protection from",
+        "Evil and Good",
+        "Purify Food and Drink",
+        "Sanctuary",
+        "Shield of Faith"
+      ],
+      second: [
+        "Aid",
+        "Augury",
+        "Blindness/Deafness",
+        "Calm Emotions",
+        "Continual Flame",
+        "Enhance Ability",
+        "Find Traps",
+        "Gentle Repose",
+        "Hold Person",
+        "Lesser Restoration",
+        "Locate Object",
+        "Prayer of Healing",
+        "Protection from Poison",
+        "Silence",
+        "Spiritual Weapon",
+        "Warding Bond",
+        "Zone of Truth"
+      ]
+    }
+  },
+  mqpgls: {
+    baseInfo: {
+      id: "mqpgls",
+      name: "Magnus",
+      class: "druid",
+      race: "dwarf",
+      alignment: {
+        reliability: "",
+        morality: ""
+      },
+      level: 3,
+      experiencePoints: 1200
+    },
+    stats: {
+      str: 12,
+      dex: 14,
+      con: 13,
+      int: 15,
+      wis: 10,
+      cha: 13
+    },
+    mods: {
+      str: 2,
+      dex: 4,
+      con: 3,
+      int: 5,
+      wis: 0,
+      cha: 3
+    },
+    skillPros: [],
+    otherPros: [],
+    savingThrowPros: [false, false, false, true, true, false],
+    combatStats: {
+      armorClass: 12,
+      initiative: 2,
+      speed: 25,
+      maxHealth: 24,
+      currentHealth: 24,
+      bonusHealth: 0,
+      hitDice: "D8",
+      deathSaves: [],
+      passivePerception: 12
+    },
+    weapons: [],
+    equipment: [],
+    inventory: [],
+    cash: { copper: 0, silver: 0, gold: 0 },
+    languages: ["Common", "Dwarven", "Drudic"],
+    featuresAndTraits: [],
+    effects: [],
+    spellSlots: { first: { max: 4, filled: 0 }, second: { max: 2, filled: 0 } },
+    preparedSpells: [],
+    innateSpells: [],
+    classSpells: {
+      cantrip: [
+        "Druidcraft",
+        "Guidance",
+        "Mending",
+        "Poison Spray",
+        "Produce Flame",
+        "Resistance",
+        "Shillelagh",
+        "Thorn Whip"
+      ],
+      first: [
+        "Animal Friendship",
+        "Charm Person",
+        "Create or Destroy Water",
+        "Cure Wounds",
+        "Detect Magic",
+        "Detect Poison and Disease",
+        "Entangle",
+        "Faerie Fire",
+        "Fog Cloud",
+        "Goodberry",
+        "Healing Word",
+        "Jump",
+        "Longstrider",
+        "Purify Food and Drink",
+        "Speak with Animals",
+        "Thunderwave"
+      ],
+      second: [
+        "Animal Messenger",
+        "Barkskin",
+        "Beast Sense",
+        "Darkvision",
+        "Enhance Ability",
+        "Find Traps",
+        "Flame Blade",
+        "Flaming Sphere",
+        "Gust of Wind",
+        "Heat Metal",
+        "Hold Person",
+        "Lesser Restoration",
+        "Locate Animals or Plants",
+        "Locate Object",
+        "Moonbeam",
+        "Pass without Trace",
+        "Protection from Poison",
+        "Spike Growth"
+      ]
+    }
   }
-];
+};
 module.exports = testChars;

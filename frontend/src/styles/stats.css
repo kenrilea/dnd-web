@@ -14,7 +14,6 @@
 .flex-vertical {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .quarter-width {
   max-width: 25vw;

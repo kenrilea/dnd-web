@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import proxy from "../../proxy.js";
 import Login from "./Login.jsx";
@@ -36,7 +37,16 @@ class UnconnectedLoginSignup extends React.Component {
   };
   render = () => {
     if (this.props.loggedIn === true) {
-      return <></>;
+      return (
+        <>
+          <div>
+            <Link to="/character/select">Go To Characters</Link>
+          </div>
+          <div>
+            <Link to="/create">Create Character</Link>
+          </div>
+        </>
+      );
     }
     return (
       <div>

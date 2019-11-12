@@ -968,12 +968,12 @@
 			{
 				"name": "Calm Emotions",
 				"id": "dozcis",
-				"time": "Time:1 action"
+				"time": "action"
 			},
 			{
 				"name": "Continual Flame",
 				"id": "rkmccs",
-				"time": "Time:1 action"
+				"time": "action"
 			},
 			{
 				"name": "Darkvision",
@@ -1068,11 +1068,16 @@
 			{
 				"name": "Warding Bond",
 				"id": "mnmnhf",
-				"time": "Time:1 action"
+				"time": "action"
 			},
 			{
 				"name": "Zone Of Truth",
 				"id": "zdainq",
+				"time": "action"
+			},
+			{
+				"name": "Poison Spray",
+				"id": "twjuxi",
 				"time": "action"
 			}
 		],
@@ -1254,13 +1259,6 @@
 			{
 				"name": "Thorn Whip",
 				"id": "assiui",
-				"time": "action"
-			}
-		],
-		"conjuration": [
-			{
-				"name": "Poison Spray",
-				"id": "twjuxi",
 				"time": "action"
 			}
 		],

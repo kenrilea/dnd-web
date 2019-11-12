@@ -4,7 +4,7 @@ import characterData from "../assets/characterData.js";
 
 const initialState = {
   stateExists: true,
-  char: characterData,
+  char: undefined,
   loggedIn: false
 };
 

@@ -1,4 +1,4 @@
-const spellNames = {
+const druidSpells = {
   cantrip: [
     "Druidcraft",
     "Guidance",
@@ -49,4 +49,4 @@ const spellNames = {
   ]
 };
 
-export default spellNames;
+export default druidSpells;

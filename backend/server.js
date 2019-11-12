@@ -135,8 +135,9 @@ spells.routes(app, upload, () => ({
 app.get("/test/characters", (req, res) => {
   console.log("GET: /test/characters");
   let charList = [];
-  testChars.forEach(char => {
-    charList.push(char.baseInfo);
+  let charIds = Object.keys(testChars);
+  charIds.forEach(id => {
+    charList.push(testChars[id].baseInfo);
   });
   charList = JSON.stringify(charList);
   res.send(charList);
@@ -145,23 +146,33 @@ app.get("/test/get-char", (req, res) => {
   let searchId = req.query.id;
   console.log("GET: character data forn" + searchId);
   let charLib = testChars;
-  let found = charLib.filter(char => {
-    if (char.baseInfo.id === searchId) {
-      return true;
-    }
-    return false;
-  });
-  if (found.length < 1) {
+  let found = charLib[searchId];
+  if (found === undefined) {
     res.send({ success: false, err: "No character by that id" });
     return;
   }
-  if (found.length > 1) {
-    res.send({ success: false, err: "Multiple characters found" });
-    return;
-  }
-  let char = found[0];
+  let char = found;
   let package = JSON.stringify({ success: true, charData: char });
   res.send(package);
+});
+app.post("/test/save-char", upload.none(), (req, res) => {
+  console.log("POST: save-char");
+  console.log(req.body);
+  let body = req.body;
+  let charData = JSON.parse(body.charData);
+  console.log("save request for " + body.id);
+  let charLib = testChars;
+  charLib[body.id] = charData;
+  fs.writeFile(
+    __dirname + "/testFiles/testCharBackup.json",
+    JSON.stringify(charLib, undefined, "\t"),
+    err => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("character library written");
+    }
+  );
 });
 
 /*

@@ -17,6 +17,7 @@ import AutoLogin from "./components/auth/AutoLogin.jsx";
 import MonsterManager from "./views/monster-manager/MonsterManager.jsx";
 import CharacterSheet from "./views/character-sheet/CharacterSheet.jsx";
 import CharCreator from "./views/character-creator/CharCreator.jsx";
+import CharacterSelect from "./views/character-select/CharacterSelect.jsx";
 
 let root = (
   <Provider store={store}>
@@ -37,6 +38,11 @@ let root = (
           component={CharacterSheet}
         />
         <Route exact={true} path="/create" component={CharCreator} />
+        <Route
+          exact={true}
+          path="/character/select"
+          component={CharacterSelect}
+        />
       </Switch>
     </BrowserRouter>
   </Provider>

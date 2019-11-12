@@ -5,6 +5,9 @@ const reducer = (state, action) => {
   if (action.type === "logout") {
     return { ...state, loggedIn: false };
   }
+  if (action.type === "chooseChar") {
+    return { ...state, char: action.charData };
+  }
   if (action.type === "addInventory") {
     return {
       ...state,
