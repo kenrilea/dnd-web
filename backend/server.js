@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const fs = require("fs");
 
 const upload = multer({ dest: __dirname + "/uploads" });
 
@@ -14,6 +15,8 @@ const signUpPreChecks = require("./utilities/signUpPreChecks");
 const passwordHash = require("password-hash");
 const character = require("./custom_modules/character/character.js");
 const spells = require("./custom_modules/character/spells.js");
+// importing test files
+const testChars = require("./testFiles/testChars.js");
 //___________________Custom Modules___________________________
 
 //login signup
@@ -129,6 +132,68 @@ spells.routes(app, upload, () => ({
 }));
 
 //__________________TEST CODE_________________________
+app.get("/test/characters", (req, res) => {
+  console.log("GET: /test/characters");
+  let charList = [];
+  testChars.forEach(char => {
+    charList.push(char.baseInfo);
+  });
+  charList = JSON.stringify(charList);
+  res.send(charList);
+});
+app.get("/test/get-char", (req, res) => {
+  let searchId = req.query.id;
+  console.log("GET: character data forn" + searchId);
+  let charLib = testChars;
+  let found = charLib.filter(char => {
+    if (char.baseInfo.id === searchId) {
+      return true;
+    }
+    return false;
+  });
+  if (found.length < 1) {
+    res.send({ success: false, err: "No character by that id" });
+    return;
+  }
+  if (found.length > 1) {
+    res.send({ success: false, err: "Multiple characters found" });
+    return;
+  }
+  let char = found[0];
+  let package = JSON.stringify({ success: true, charData: char });
+  res.send(package);
+});
+
+/*
+const fs = require("fs");
+let loadTest = () => {
+  console.log("loading test set to DB");
+  //this is for loading the test spell set out of a json file on disk into the DB
+  fs.readFile(
+    "C:/Users/travi/web_files/dnd-web/backend/testFiles/spellLibrary.json",
+    "utf8",
+    (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      let lib = JSON.parse(data);
+      //we remove the index array since we dont want to push it into the db
+      lib.index = undefined;
+      let spellIds = Object.keys(lib);
+      spellIds = spellIds.slice(1, 11);
+      spellIds.forEach(id => {
+        let data = { body: {} };
+        data.body.id = id;
+        data.body.spell = JSON.stringify(lib[id]);
+        console.log("adding spell to db: " + id);
+        spells.addSpell(data);
+      });
+    }
+  );
+};
+
+loadTest();
+*/
 
 //_________________End of END POINTS____________________
 app.listen(4000, "0.0.0.0", () => {

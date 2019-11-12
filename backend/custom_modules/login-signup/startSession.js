@@ -31,7 +31,7 @@ let startSession = (collection, username, res) => {
   res.send(
     JSON.stringify({
       success: true,
-      reesult: "logged in as " + username
+      result: "logged in as " + username
     })
   );
 };
