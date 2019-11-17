@@ -36,7 +36,7 @@ class MonsterManager extends Component {
   };
 
   loadMonsters = async () => {
-    let res = await fetch("/monsters");
+    let res = await fetch(proxy + "/monsters");
     let monsterJSON = await res.text();
     let monsters = JSON.parse(monsterJSON);
     console.log(monsters);

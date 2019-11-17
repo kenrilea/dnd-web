@@ -43,7 +43,7 @@ class MonsterForm extends Component {
     let data = new FormData();
     data.append("stats", this.state.stats);
     data.append("name", this.state.name);
-    let res = await fetch("add-monster", { method: "POST", body: data });
+    let res = await fetch(proxy + "/add-monster", { method: "POST", body: data });
     this.setState({ submit: res.success });
   };
 

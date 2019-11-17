@@ -58,9 +58,11 @@ let Collection_Spells;
 })();
 
 //_____________________MIDLEWARE_______________________
+hostIp = 'localhost'
+
 app.use(cookieParser());
 app.use(cors());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" })); // CONFIG FOR LOCAL SERVER
+app.use(cors({ credentials: true, origin: "http://" + hostIp +":3000" })); // CONFIG FOR LOCAL SERVER
 app.use("/images", express.static(__dirname + "/uploads")); // Files in local folder uploads have endpoints as /images/x
 app.use("/assets", express.static(__dirname + "/assets"));
 
@@ -206,8 +208,11 @@ let loadTest = () => {
 loadTest();
 */
 
+
+
 //_________________End of END POINTS____________________
-app.listen(4000, "0.0.0.0", () => {
+app.listen(4000, hostIp, () => {
   // REMOTE SERVER/DROPLET
-  console.log("Running on port 4000 , 0.0.0.0");
+  console.log("Running on port 4000 host:" + hostIp);
 });
+

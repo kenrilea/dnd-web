@@ -53,7 +53,7 @@ class UnconnectedSpellViewer extends Component {
   getSpellData = async spellId => {
     let data = new FormData();
     data.append("query", { id: this.state.activeSpell });
-    let res = await fetch("/spell", { method: "GET", body: data });
+    let res = await fetch(proxy + "/spell", { method: "GET", body: data });
     let bodJSON = await res.text();
     let bod = JSON.parse(bodJSON);
     console.log(bod);

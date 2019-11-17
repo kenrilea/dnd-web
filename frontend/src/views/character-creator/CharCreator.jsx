@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import proxy from '../../proxy.js';
 
 const races = [
   "Elf",
@@ -130,7 +131,7 @@ class UnconnectedCharCreator extends Component {
     data.append("charJSON", charJSON);
     console.log("char packaged for shipment");
     console.log(data);
-    fetch("http://localhost:4000/character/stats", {
+    fetch(proxy + "/character/stats", {
       method: "POST",
       body: data
     });

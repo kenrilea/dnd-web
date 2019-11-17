@@ -27,7 +27,7 @@ class AbilityForm extends Component {
     data.append("hitBonus", this.state.hitBonus);
     data.append("dmgDie", this.state.dmgDie);
     data.append("dmgMod", this.state.dmgMod);
-    await fetch("/add-ability", { method: "POST", body: data });
+    await fetch(proxy + "/add-ability", { method: "POST", body: data });
     this.setState({
       abilites: this.state.abilites.concat(newAbility),
       name: "",
