@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import proxy from "../../proxy.js";
 
 class UnconnectedCharacterSelect extends Component {
   constructor(props) {
@@ -8,7 +9,10 @@ class UnconnectedCharacterSelect extends Component {
     this.state = { chars: [] };
   }
   loadCharList = async () => {
-    let res = await fetch("http://localhost:4000/test/characters");
+    let res = await fetch(proxy + "test/characters", {
+      method: "GET",
+      credentials: "include"
+    });
     let charList = await res.text();
     charList = JSON.parse(charList);
     this.setState({ chars: charList });
@@ -16,7 +20,7 @@ class UnconnectedCharacterSelect extends Component {
   selectChar = async event => {
     let charId = event.target.name;
     console.log("fetching char data for " + charId);
-    let path = "http://localhost:4000/test/get-char?id=" + charId;
+    let path = proxy + "test/get-char?id=" + charId;
     let newChar = undefined;
     let res = await fetch(path);
     let body = await res.text();

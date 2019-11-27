@@ -18,6 +18,7 @@ import MonsterManager from "./views/monster-manager/MonsterManager.jsx";
 import CharacterSheet from "./views/character-sheet/CharacterSheet.jsx";
 import CharCreator from "./views/character-creator/CharCreator.jsx";
 import CharacterSelect from "./views/character-select/CharacterSelect.jsx";
+import SpellViewer from "./views/character-sheet/SpellViewer.jsx";
 
 let root = (
   <Provider store={store}>
@@ -43,6 +44,7 @@ let root = (
           path="/character/select"
           component={CharacterSelect}
         />
+        <Route exact={true} path="/spells" component={SpellViewer} />
       </Switch>
     </BrowserRouter>
   </Provider>

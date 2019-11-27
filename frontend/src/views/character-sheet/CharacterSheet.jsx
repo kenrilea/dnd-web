@@ -8,6 +8,7 @@ import Inventory from "./Inventory.jsx";
 import BasicInfo from "./BasicInfo.jsx";
 import Spells from "./Spells.jsx";
 import Effects from "./Effects.jsx";
+import proxy from "../../proxy.js";
 
 class UnconnectedCharacterSheet extends Component {
   constructor(props) {
@@ -62,7 +63,7 @@ class UnconnectedCharacterSheet extends Component {
     data.append("id", this.props.char.baseInfo.id);
     let charData = JSON.stringify(this.props.char);
     data.append("charData", charData);
-    fetch("http://localhost:4000/test/save-char", {
+    fetch(proxy + "test/save-char", {
       method: "POST",
       body: data
     });
