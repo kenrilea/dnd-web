@@ -10,6 +10,8 @@ import Spells from "./Spells.jsx";
 import Effects from "./Effects.jsx";
 import proxy from "../../proxy.js";
 
+import proxy from '../../proxy.js'
+
 class UnconnectedCharacterSheet extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +65,11 @@ class UnconnectedCharacterSheet extends Component {
     data.append("id", this.props.char.baseInfo.id);
     let charData = JSON.stringify(this.props.char);
     data.append("charData", charData);
+<<<<<<< HEAD
     fetch(proxy + "test/save-char", {
+=======
+    fetch(proxy + "/test/save-char", {
+>>>>>>> 5c40029ccca6e620fa53df1b205c266adfaa9781
       method: "POST",
       body: data
     });

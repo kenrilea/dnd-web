@@ -9,7 +9,7 @@ class UnconnectedCharacterSelect extends Component {
     this.state = { chars: [] };
   }
   loadCharList = async () => {
-    let res = await fetch(proxy + "test/characters", {
+    let res = await fetch(proxy + "/test/characters", {
       method: "GET",
       credentials: "include"
     });
@@ -20,7 +20,7 @@ class UnconnectedCharacterSelect extends Component {
   selectChar = async event => {
     let charId = event.target.name;
     console.log("fetching char data for " + charId);
-    let path = proxy + "test/get-char?id=" + charId;
+    let path = proxy + "/test/get-char?id=" + charId;
     let newChar = undefined;
     let res = await fetch(path);
     let body = await res.text();
