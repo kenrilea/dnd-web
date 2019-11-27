@@ -35,6 +35,7 @@ let Collection_LoginInfo;
 let Collection_Sessions;
 let Collection_CharacterStats;
 let Collection_Spells;
+let Collection_UserData;
 
 (async function initDB() {
   await MongoClient.connect(
@@ -50,6 +51,7 @@ let Collection_Spells;
       CharactersDB = allDbs.db("Characters");
       GameDB = allDbs.db("Game");
       Collection_LoginInfo = UsersDB.collection("LoginInfo");
+      Collection_UserData = UsersDB.collection("users");
       Collection_Sessions = UsersDB.collection("Sessions");
       Collection_CharacterStats = CharactersDB.collection("stats");
       Collection_Spells = GameDB.collection("spells");
@@ -60,9 +62,10 @@ let Collection_Spells;
 //_____________________MIDLEWARE_______________________
 app.use(cookieParser());
 app.use(cors());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" })); // CONFIG FOR LOCAL SERVER
+app.use(cors({ credentials: true, origin: "http://192.168.2.10:3000" })); // CONFIG FOR LOCAL SERVER
 app.use("/images", express.static(__dirname + "/uploads")); // Files in local folder uploads have endpoints as /images/x
 app.use("/assets", express.static(__dirname + "/assets"));
+app.use("/", express.static(__dirname + "/build"));
 
 //app.use(cors({ credentials: true, origin: "http://134.209.119.133:3000" })); // CONFIG FOR REMOTE SERVER
 
@@ -86,6 +89,7 @@ app.post("/signup", upload.none(), (req, res) => {
   HandleAuth.signUp(
     Collection_LoginInfo,
     Collection_Sessions,
+    Collection_UserData,
     req.body.username,
     hashedPassword,
     res
@@ -123,7 +127,8 @@ app.post("/login", upload.none(), (req, res) => {
 character.routes(app, upload, () => ({
   loginInfo: Collection_LoginInfo,
   sessions: Collection_Sessions,
-  characterStats: Collection_CharacterStats
+  characterStats: Collection_CharacterStats,
+  userData: Collection_UserData
 }));
 spells.routes(app, upload, () => ({
   loginInfo: Collection_LoginInfo,
@@ -174,6 +179,9 @@ app.post("/test/save-char", upload.none(), (req, res) => {
     }
   );
 });
+app.get("/", (req, res) => {
+  res.sendFile("C:/Users/travi/web_files/dnd-web/frontend/build/index.html");
+});
 
 /*
 const fs = require("fs");
@@ -210,4 +218,7 @@ loadTest();
 app.listen(4000, "0.0.0.0", () => {
   // REMOTE SERVER/DROPLET
   console.log("Running on port 4000 , 0.0.0.0");
+});
+app.listen(3000, "0.0.0.0", () => {
+  console.log("frontend on 3000");
 });

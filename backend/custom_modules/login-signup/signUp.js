@@ -1,13 +1,14 @@
 const startSession = require("./startSession");
 
 const signUp = (
-  userInfoCollection,
+  loginInfoCollection,
   sessionsCollection,
+  userData,
   username,
   hashedPassword,
   res
 ) => {
-  userInfoCollection.find({ username }).toArray((err, foundUsers) => {
+  loginInfoCollection.find({ username }).toArray((err, foundUsers) => {
     if (foundUsers.length > 0) {
       console.log("username taken");
       res.status(400);
@@ -20,7 +21,7 @@ const signUp = (
       );
       return;
     }
-    userInfoCollection.insertOne(
+    loginInfoCollection.insertOne(
       {
         username,
         hashedPassword
@@ -31,8 +32,15 @@ const signUp = (
 
           throw err;
         }
-        console.log("account created");
-        startSession(sessionsCollection, username, res);
+        const newUser = { username: username, charList: [] };
+        userData.insertOne({ newUser }, (err, result) => {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
+          console.log("account created");
+          startSession(sessionsCollection, username, res);
+        });
       }
     );
   });

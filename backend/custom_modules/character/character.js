@@ -57,9 +57,43 @@ const newCharStats = req => {
   });
   return dbRequest;
 };
+const addUserChar = req => {
+  collections.sessions.findOne({ sid: req.cookies.sid }, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    let user = result.username;
+    const charId = req.body.id;
+    collections.userData.findOne({ username: user }, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      newChars = result.charList.concat(charId);
+      collections.userData.updateOne(
+        { username: user },
+        { $set: { charList: newChars } },
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    });
+  });
+};
 
-const characterList = () => {
-  return mongo.listCollection(collections.characterStats);
+const characterList = user => {
+  dbResult = new Promise((resolve, reject) => {
+    collections.userData.findOne({ username: user }, (err, result) => {
+      if (err) {
+        console.log(err);
+        resolve([]);
+      }
+      resolve(result.charList);
+    });
+  });
+  return dbResult;
+  //return mongo.listCollection(collections.characterStats);
 };
 
 const routes = async (app, upload, initialize) => {
@@ -69,6 +103,9 @@ const routes = async (app, upload, initialize) => {
     collections = initialize();
     const dbResult = getCharStats(req);
     dbResult.then(result => {
+      if (result.success) {
+        addUserChar(req);
+      }
       res.send(result);
       console.log("request complete");
       console.log();
@@ -84,7 +121,6 @@ const routes = async (app, upload, initialize) => {
       console.log(result);
       res.send(JSON.stringify(result));
       console.log("request complete");
-      console.log();
     });
   });
   // ---------------------------------------------------------
@@ -93,12 +129,18 @@ const routes = async (app, upload, initialize) => {
     console.log("GET: /character/list");
     collections = initialize();
     console.log("recieved");
-    const dbResult = characterList(req);
-    dbResult.then(result => {
-      console.log(result);
-      res.send(JSON.stringify(result));
-      console.log("request complete");
-      //console.log()
+    collections.sessions.findOne({ sid: req.cookies.sid }, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      let user = result.username;
+      const dbResult = characterList(user);
+      dbResult.then(result => {
+        console.log(result);
+        res.send(JSON.stringify(result));
+        console.log("request complete");
+        //console.log()
+      });
     });
   });
 };
