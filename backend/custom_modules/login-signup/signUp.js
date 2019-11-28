@@ -33,7 +33,7 @@ const signUp = (
           throw err;
         }
         const newUser = { username: username, charList: [] };
-        userData.insertOne({ newUser }, (err, result) => {
+        userData.insertOne({ ...newUser }, (err, result) => {
           if (err) {
             console.log(err);
             throw err;

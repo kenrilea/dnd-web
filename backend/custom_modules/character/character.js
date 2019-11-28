@@ -30,10 +30,11 @@ const newCharStats = req => {
   if (!req.body) {
     return { success: false, message: "request body is required" };
   }
-  const { id } = req.body;
+  console.log(req.body);
+  const id = req.body.id;
   console.log(`adding new character stats for ${id}`);
   const dbRequest = new Promise((resolve, reject) => {
-    collections.characterStats.find({ id }).toArray((err, result) => {
+    collections.characterStats.find({ id: id }).toArray((err, result) => {
       if (err) {
         resolve({ success: false, error: err });
       }
@@ -46,7 +47,7 @@ const newCharStats = req => {
           ...req.body
         },
         (err, result) => {
-          if (!err) {
+          if (err) {
             resolve({ success: false, error: err });
           }
           console.log("success");
@@ -58,17 +59,19 @@ const newCharStats = req => {
   return dbRequest;
 };
 const addUserChar = req => {
-  collections.sessions.findOne({ sid: req.cookies.sid }, (err, result) => {
+  collections.sessions.findOne({ sid: req.cookies.sid }, (err, session) => {
     if (err) {
       console.log(err);
     }
-    let user = result.username;
+    let user = session.username;
+    console.log("session found for " + user);
     const charId = req.body.id;
     collections.userData.findOne({ username: user }, (err, result) => {
       if (err) {
         console.log(err);
       }
       newChars = result.charList.concat(charId);
+      console.log(newChars);
       collections.userData.updateOne(
         { username: user },
         { $set: { charList: newChars } },
@@ -97,15 +100,11 @@ const characterList = user => {
 };
 
 const routes = async (app, upload, initialize) => {
-  app.get("/character/stats", upload.none(), (req, res) => {
-    console.log();
+  app.get("/character/stats", (req, res) => {
     console.log("GET: /character/stats");
     collections = initialize();
     const dbResult = getCharStats(req);
     dbResult.then(result => {
-      if (result.success) {
-        addUserChar(req);
-      }
       res.send(result);
       console.log("request complete");
       console.log();
@@ -118,10 +117,38 @@ const routes = async (app, upload, initialize) => {
     console.log("recieved");
     const dbResult = newCharStats(req);
     dbResult.then(result => {
+      if (result.success) {
+        console.log("char written to db");
+        addUserChar(req);
+      } else {
+        console.log(result);
+      }
       console.log(result);
       res.send(JSON.stringify(result));
       console.log("request complete");
     });
+  });
+  app.post("/character/update", upload.none(), (req, res) => {
+    console.log("POST: /charcater/update");
+    collections = initialize();
+    collections.characterStats.updateOne(
+      { id: req.body.id },
+      { $set: { charData: req.body.charData } },
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          res.send(
+            JSON.stringify({
+              success: false,
+              msg: "error writing character stats to db"
+            })
+          );
+          return;
+        }
+        console.log("char stats updated for " + req.body.id);
+        res.send(JSON.stringify({ success: true, char: result.charData }));
+      }
+    );
   });
   // ---------------------------------------------------------
   app.get("/character/list", upload.none(), (req, res) => {
