@@ -62,6 +62,7 @@ class UnconnectedCharCreator extends Component {
         let index = Math.floor(Math.random() * 26);
         id = id + base[index];
       }
+      return id;
     };
     let generateMods = statObj => {
       let mods = {};
@@ -84,9 +85,11 @@ class UnconnectedCharCreator extends Component {
       return mods;
     };
     let data = new FormData();
-    data.append("id", generateId(6));
+    const charId = generateId(6);
+    data.append("id", charId);
     let finalChar = {
       baseInfo: {
+        id: charId,
         name: this.state.charName,
         class: this.state.class,
         race: this.state.race,
@@ -106,7 +109,7 @@ class UnconnectedCharCreator extends Component {
       weapons: [],
       equipment: [],
       inventory: [],
-      cash: {},
+      cash: { copper: 0, silver: 0, gold: 0 },
       languages: [],
       featuresAndTraits: [],
       effects: [],
@@ -128,12 +131,12 @@ class UnconnectedCharCreator extends Component {
     finalChar.combatStats = combatStats;
     finalChar.combatStats.currentHealth = finalChar.combatStats.maxHealth;
     let charJSON = JSON.stringify(finalChar);
-    data.append("charJSON", charJSON);
-    console.log("char packaged for shipment");
+    data.append("charData", charJSON);
     console.log(data);
     fetch(proxy + "/character/stats", {
       method: "POST",
-      body: data
+      body: data,
+      credentials: "include"
     });
   };
   render = () => {

@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import StatBox from "./StatBox.jsx";
 import SavingThrows from "./SavingThrows.jsx";
+import { connect } from "react-redux";
 
-class StatWrapper extends Component {
+class UnconnectedStatWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stats: {
-        str: this.props.stats.str,
-        dex: this.props.stats.dex,
-        con: this.props.stats.con,
-        int: this.props.stats.int,
-        wis: this.props.stats.wis,
-        cha: this.props.stats.cha
-      }
+      stats: { ...this.props.stats }
     };
   }
   drawStatBoxes = stats => {
@@ -33,4 +27,9 @@ class StatWrapper extends Component {
   };
 }
 
+const mapState = state => {
+  return { stats: state.char.stats, mods: state.char.mods };
+};
+
+const StatWrapper = connect(mapState)(UnconnectedStatWrapper);
 export default StatWrapper;

@@ -93,6 +93,7 @@
   border-radius: 15px;
   padding: 10px;
   width: max-content;
+  min-width: fit-content;
 }
 .combat-button {
   background-color: #292929;

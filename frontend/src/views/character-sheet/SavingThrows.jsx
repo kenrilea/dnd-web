@@ -40,7 +40,8 @@ const mapState = state => {
   return {
     saves: state.char.savingThrowPros,
     stats: state.char.mods,
-    pro: 2
+    editing: state.editing,
+    pro: 3
   };
 };
 

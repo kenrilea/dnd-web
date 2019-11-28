@@ -10,8 +10,6 @@ import Spells from "./Spells.jsx";
 import Effects from "./Effects.jsx";
 import proxy from "../../proxy.js";
 
-import proxy from '../../proxy.js'
-
 class UnconnectedCharacterSheet extends Component {
   constructor(props) {
     super(props);
@@ -59,20 +57,25 @@ class UnconnectedCharacterSheet extends Component {
     return statMods;
   };
 
-  saveChar = () => {
+  saveChar = async () => {
     let data = new FormData();
     console.log("adding char id to form " + this.props.char.baseInfo.id);
     data.append("id", this.props.char.baseInfo.id);
     let charData = JSON.stringify(this.props.char);
     data.append("charData", charData);
-<<<<<<< HEAD
-    fetch(proxy + "test/save-char", {
-=======
-    fetch(proxy + "/test/save-char", {
->>>>>>> 5c40029ccca6e620fa53df1b205c266adfaa9781
+    const res = await fetch(proxy + "/character/update", {
       method: "POST",
       body: data
     });
+    let body = await res.text();
+    body = JSON.parse(body);
+    if (body.success === true) {
+      return;
+    }
+    alert("body.msg");
+  };
+  toggleEdit = event => {
+    this.props.dispatch({ type: "toggleEdit" });
   };
 
   render = () => {
@@ -83,9 +86,12 @@ class UnconnectedCharacterSheet extends Component {
     return (
       <div className="page-view">
         <BasicInfo />
+        <button onClick={this.toggleEdit} className="button-base">
+          Edit Character
+        </button>
         <div className="horozontial-category">
           <div>
-            <StatWrapper stats={this.props.char.stats} />
+            <StatWrapper />
             <CombatStats
               stats={this.props.char.mods}
               combatStats={this.props.char.combatStats}
@@ -114,7 +120,7 @@ class UnconnectedCharacterSheet extends Component {
 }
 
 const mapState = state => {
-  return { char: state.char };
+  return { char: state.char, editing: state.editing };
 };
 
 const CharacterSheet = connect(mapState)(UnconnectedCharacterSheet);
