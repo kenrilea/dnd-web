@@ -46,7 +46,7 @@ class UnconnectedCharacterSelect extends Component {
   drawChars = char => {
     console.log(char);
     return (
-      <Link to="/character-sheet">
+      <Link to={"/character-sheet/" + char.baseInfo.id}>
         <button
           onClick={this.selectChar}
           name={char.baseInfo.id}

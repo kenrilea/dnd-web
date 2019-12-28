@@ -74,7 +74,10 @@ class UnconnectedSpellViewer extends Component {
       return classLib;
     };
     let filterSpellsLevel = () => {
-      if (this.state.displayFilter === undefined) {
+      if (
+        this.state.displayFilter === undefined ||
+        this.state.displayFilter === "All"
+      ) {
         return Object.keys(this.props.classSpells);
       }
       if (this.state.displayFilter === "haveLevel") {
@@ -83,7 +86,10 @@ class UnconnectedSpellViewer extends Component {
       return [this.state.displayFilter];
     };
     let filterSpellsTime = spell => {
-      if (this.state.displayTime === undefined) {
+      if (
+        this.state.displayTime === undefined ||
+        this.state.displayTime === "All"
+      ) {
         return true;
       }
       if (this.state.displayTime === "other") {
@@ -187,7 +193,7 @@ class UnconnectedSpellViewer extends Component {
                     value={this.state.displayTime}
                     onChange={this.filterByTime}
                   >
-                    <option value={undefined}>All</option>
+                    <option>All</option>
                     <option value="action">Action</option>
                     <option value="bonus action">Bonus Action</option>
                     <option value="reaction">Reaction</option>

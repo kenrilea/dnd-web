@@ -35,7 +35,7 @@ let root = (
         />
         <Route
           exact={true}
-          path="/character-sheet"
+          path="/character-sheet/:id"
           component={CharacterSheet}
         />
         <Route exact={true} path="/create" component={CharCreator} />

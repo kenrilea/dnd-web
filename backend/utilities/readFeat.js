@@ -3,7 +3,8 @@ let client = new vision.ImageAnnotatorClient();
 const fs = require("fs");
 const spellParser = require("./spellParser.js");
 
-const credentials = "export GOOGLE_APPLICATION_CREDENTIALS=./cloud-vision/";
+const credentials =
+  "export GOOGLE_APPLICATION_CREDENTIALS=./cloud-vision/dnd-web-258417-4a4fd2f2b908.json";
 
 const writeFile = (filename, data, shouldStringify) => {
   if (shouldStringify) {
@@ -66,20 +67,31 @@ const scanToJSON = async file => {
     console.log(output);
     return output;
   });
-
   let scanTextLines = processScan(scanOutput);
   //let fileName = __dirname + "/rawDruidSpells.js";
-  let outputFileName = file.split(".").shift();
-  fs.writeFile(outputFileName + ".json", JSON.stringify(scanTextLines), err => {
-    if (err) {
-      console.log(err);
-    }
-  });
   return scanTextLines;
+};
+
+const featParser = scanLines => {
+  let titleIndexs = [];
+  for (let i = 0; i < scanLines.length; i++) {
+    if (scanLines[i] === scanLines[i].toUpperCase()) {
+      titleIndexs.push(i);
+    }
+  }
+  let featList = [];
+  for (let j = 0; j < titleIndexs.length; j++) {
+    let feat = scanLines.slice(titleIndexs[j], titleIndexs[j + 1]);
+    featList.push(feat);
+  }
+  return featList;
 };
 
 const processScan = textObject => {
   let scanResult = textObject;
+  if (scanResult === null || scanResult === undefined) {
+    return [];
+  }
   let lines = scanResult[0].text.split("\n");
   console.log(lines);
   return lines;
@@ -113,21 +125,34 @@ const processScanFile = async file => {
   });
 };
 
-let readSpell = async fileName => {
-  let readFile = __dirname + "/spell-images/" + fileName;
-  let scannedLines = await scanToJSON(readFile);
-  let spellObj = spellParser(scannedLines);
-  return spellObj;
+let readFeat = async fileName => {
+  let readFile = __dirname + "/feat-images/" + fileName;
+  fs.readdir(__dirname + "/feat-images/", (err, featFiles) => {
+    Promise.all(
+      featFiles.map(async fileName => {
+        let scannedLines = await scanToJSON(
+          __dirname + "/feat-images/" + fileName
+        );
+        let featList = featParser(scannedLines);
+        return featList;
+      })
+    ).then(featList => {
+      console.log("all feats scanned");
+      console.log(featList);
+      let allFeats = [];
+      featList.forEach(smallList => {
+        allFeats.concat(smallList);
+      });
+      console.log(allFeats);
+    });
+  });
 };
 
-const spellToFile = async filePath => {
-  let spell = await readSpell(filePath);
-  let fileName = filePath.split(".").shift();
-  writeFile(fileName, spell, true);
-  addToLibrary(spell);
+const featToFile = async filePath => {
+  let feats = await readFeat();
+  //writeFile(fileName, spell, true);
+  //addToLibrary(spell);
 };
 
 let args = process.argv.slice(2, process.argv.length);
-spellToFile(args[0]);
-
-module.exports = spellToFile;
+featToFile();

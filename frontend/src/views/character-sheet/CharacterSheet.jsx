@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { loadChar } from "../../network-action.js";
 import StatWrapper from "./StatWrapper.jsx";
 import SkillWrapper from "./SkillWrapper.jsx";
 import CombatStats from "./CombatStats.jsx";
@@ -9,6 +10,7 @@ import BasicInfo from "./BasicInfo.jsx";
 import Spells from "./Spells.jsx";
 import Effects from "./Effects.jsx";
 import proxy from "../../proxy.js";
+import Notes from "./Notes.jsx";
 
 class UnconnectedCharacterSheet extends Component {
   constructor(props) {
@@ -56,7 +58,6 @@ class UnconnectedCharacterSheet extends Component {
     });
     return statMods;
   };
-
   saveChar = async () => {
     let data = new FormData();
     console.log("adding char id to form " + this.props.char.baseInfo.id);
@@ -74,12 +75,19 @@ class UnconnectedCharacterSheet extends Component {
     }
     alert("body.msg");
   };
+  loadPage = async event => {
+    console.log(this.props.match.params.id);
+    let charId = this.props.match.params.id;
+    let charData = await loadChar(charId);
+    console.log(charData);
+    this.props.dispatch({ type: "chooseChar", charData });
+  };
   toggleEdit = event => {
     this.props.dispatch({ type: "toggleEdit" });
   };
-
   render = () => {
     if (this.props.char === undefined) {
+      this.loadPage();
       return <div>Loading....</div>;
     }
     this.saveChar();
@@ -113,6 +121,8 @@ class UnconnectedCharacterSheet extends Component {
           <div>
             <Spells />
           </div>
+
+          <Notes />
         </div>
       </div>
     );

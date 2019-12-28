@@ -6,7 +6,18 @@ const reducer = (state, action) => {
     return { ...state, loggedIn: false };
   }
   if (action.type === "chooseChar") {
-    return { ...state, char: action.charData };
+    return {
+      ...state,
+      char: action.charData,
+      activeChar: action.charData.baseInfo.id,
+      notes: action.notes
+    };
+  }
+  if (action.type === "loadNotes") {
+    return {
+      ...state,
+      notes: action.notes
+    };
   }
   if (action.type === "toggleEdit") {
     return { ...state, editing: !state.editing };

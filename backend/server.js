@@ -55,6 +55,7 @@ let Collection_UserData;
       Collection_Sessions = UsersDB.collection("Sessions");
       Collection_CharacterStats = CharactersDB.collection("stats");
       Collection_Spells = GameDB.collection("spells");
+      Collection_Notes = CharactersDB.collection("notes");
     }
   );
 })();
@@ -130,7 +131,8 @@ character.routes(app, upload, () => ({
   loginInfo: Collection_LoginInfo,
   sessions: Collection_Sessions,
   characterStats: Collection_CharacterStats,
-  userData: Collection_UserData
+  userData: Collection_UserData,
+  characterNotes: Collection_Notes
 }));
 spells.routes(app, upload, () => ({
   loginInfo: Collection_LoginInfo,

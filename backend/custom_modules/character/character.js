@@ -150,6 +150,62 @@ const routes = async (app, upload, initialize) => {
       }
     );
   });
+  //-----NOTES ENDPOINTS----------------------------------
+  app.get("/character/notes", (req, res) => {
+    console.log("GET: /character/notes");
+    let charId = req.query.id;
+    console.log(charId);
+    collections = initialize();
+    collections.characterNotes.findOne({ charId }, (err, result) => {
+      if (err) {
+        throw err;
+      }
+      if (result === null) {
+        console.log("no notes found for char");
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      res.send(JSON.stringify({ success: true, data: result.notes }));
+    });
+  });
+  app.post("/character/notes", upload.none(), (req, res) => {
+    let charId = req.body.charId;
+    let newNotes = JSON.parse(req.body.notes);
+    collections = initialize();
+    collections.characterNotes.updateOne(
+      { charId },
+      { $set: { notes: newNotes } },
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        if (result.result.nModified < 1) {
+          console.log("no document found, creating new notes");
+          collections.characterNotes.insertOne(
+            { charId, notes: newNotes },
+            (err, result) => {
+              if (err) {
+                throw err;
+              }
+            }
+          );
+        }
+        res.send(JSON.stringify({ success: true }));
+      }
+    );
+  });
+  //-------------------------------------------------------------------------------------
+  app.get("/character/template", (req, res) => {
+    console.log("GET: /character/template");
+    const charClass = req.query.class;
+    const charLevel = parseInt(req.query.lvl);
+    if (charClass === "Cleric") {
+      let charData = require("../../utilities/cleric-template.js");
+      charData.base = charData.base.slice(0, charLevel + 1);
+      res.send(JSON.stringify({ success: true, data: charData }));
+      return;
+    }
+  });
   // ---------------------------------------------------------
   app.get("/character/list", upload.none(), (req, res) => {
     console.log();

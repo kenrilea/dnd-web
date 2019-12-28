@@ -1,13 +1,14 @@
 const cleric = {
+  //base is an array, with each index corresponding to the features gained at that level
+  //index 0 is features gained if you take this class as your first i.e.
+  //you do not get these if you multiclass into this class
   base: [
+    //first class features
     {
-      proficiencies: [
-        "History",
-        "Insight",
-        "Medicine",
-        "Persuasion",
-        "Religion"
-      ],
+      proficiencies: {
+        options: ["History", "Insight", "Medicine", "Persuasion", "Religion"],
+        number: 2
+      },
       extraProficiencies: [
         "Light Armor",
         "Medium Armor",
@@ -15,9 +16,9 @@ const cleric = {
         "Simple Weapons"
       ],
       baseHP: 8,
-      hitDice: "D8",
-      spellStat: "wis"
+      savingThrows: [false, false, false, false, true, true]
     },
+    //level 1 features
     {
       subClass: {
         name: "Divine Domain",
@@ -31,23 +32,11 @@ const cleric = {
           "War"
         ]
       },
-      savingThrows: [false, false, false, false, true, true],
+      hitDice: "D8",
+      spellStat: "wis",
       spellSlots: { first: { max: 2, filled: 0 } },
-      maxPrepared: 1
-    },
-    {
-      spellSlots: { first: { max: 3, filled: 0 } },
-      featuresAndTraits: [
-        {
-          name: "Channel Divinity - Turn Undead",
-          description:
-            "As an Action, present your Holy Symbol & any undead creature within 30ft that can see or hear you must make a wisdom saving throw.  On failure it is turned and must spend its turns moving as far away from you as possible.  Affected undead may only take the dash action to move further from you, or if this is impossible, the dodge action",
-          regeneratesOn: "Short or Long Rest"
-        }
-      ],
       cantrips: 3,
-      maxPrepared: 2,
-      maxKnown: 999,
+      maxPrepared: 1,
       classSpells: {
         cantrip: [
           "Guidance",
@@ -76,8 +65,20 @@ const cleric = {
           "Sanctuary",
           "Shield of Faith"
         ]
-      },
-      innateSpells: []
+      }
+    },
+    // level 2 features
+    {
+      spellSlots: { first: { max: 3, filled: 0 } },
+      featuresAndTraits: [
+        {
+          name: "Channel Divinity - Turn Undead",
+          description:
+            "As an Action, present your Holy Symbol & any undead creature within 30ft that can see or hear you must make a wisdom saving throw.  On failure it is turned and must spend its turns moving as far away from you as possible.  Affected undead may only take the dash action to move further from you, or if this is impossible, the dodge action",
+          regeneratesOn: "Short or Long Rest"
+        }
+      ],
+      maxPrepared: 2
     }
   ],
   Light: {

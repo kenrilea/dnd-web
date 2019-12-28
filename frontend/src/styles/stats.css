@@ -28,8 +28,32 @@
   background-color: #292929;
   border: 1px solid whitesmoke;
   color: white;
+  padding: 3px;
+}
+.input-subheader {
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+  padding: 5px;
+  font-variant: small-caps;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.input-area {
+  width: 90%;
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+  padding: 5px;
+  height: 200px;
 }
 .wrapper {
+  margin: 3px;
+  border: 2px solid whitesmoke;
+  padding: 5px;
+}
+.wrapper-note {
+  box-sizing: border-box;
   margin: 3px;
   border: 2px solid whitesmoke;
   padding: 5px;
