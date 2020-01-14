@@ -25,15 +25,15 @@ class UnconnectedNote extends Component {
             <div>
               <input
                 value={this.state.title}
-                className="input-header"
+                className="input-subheader"
                 onChange={this.inputHandler}
                 name="title"
               />
             </div>
             <div>
-              <input
+              <textarea
                 value={this.state.body}
-                className="input-base"
+                className="input-area"
                 onChange={this.inputHandler}
                 name="body"
               />
