@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadChar } from "../../network-action.js";
+import proxy from '../../proxy.js';
+
+import characterData from "../../../assets/characterData.js";
 import StatWrapper from "./StatWrapper.jsx";
 import SkillWrapper from "./SkillWrapper.jsx";
 import CombatStats from "./CombatStats.jsx";
