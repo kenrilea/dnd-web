@@ -217,7 +217,7 @@ if (args[0] === "--scan") {
     }
   });
 }
-if (args[0].split(".").pop() === "png" || args[0].split(".").pop() === "jpg") {
+if ((args[0] && args[0].split(".").pop() === "png") || (args[0] && args[0].split(".").pop() === "jpg")) {
   spellToFile(args[0]);
 }
 if (args[0] === "--update-library") {
