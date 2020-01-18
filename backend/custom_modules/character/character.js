@@ -100,15 +100,19 @@ const characterList = user => {
 };
 
 const routes = async (app, upload, initialize) => {
-  app.get("/character/stats", (req, res) => {
-    console.log("GET: /character/stats");
-    collections = initialize();
-    const dbResult = getCharStats(req);
-    dbResult.then(result => {
-      res.send(result);
-      console.log("request complete");
-      console.log();
-    });
+    app.get('/character/stats', upload.none(), (req, res) => {
+        console.log()
+        console.log('GET: /character/stats')
+        collections = initialize()
+        const dbResult = getCharStats(req);
+        if (dbResult && dbResult.success === false) {
+            res.send(dbResult);
+        }
+        dbResult.then((result) => {
+            res.send(result)
+            console.log('request complete')
+            console.log()
+        });
   });
   app.post("/character/stats", upload.none(), (req, res) => {
     console.log();

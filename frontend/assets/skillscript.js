@@ -22,9 +22,7 @@ let skills = [
 
 let toObj = skill => {
   let words = skill.split(" ");
-  //console.log(words[words.length - 1]);
   let stat = words[words.length - 1];
-  //console.log(stat);
   let name = words.slice(0, words.length - 1).join(" ");
   stat = stat.slice(1, stat.length - 1);
   stat = stat.toLowerCase();
@@ -33,7 +31,6 @@ let toObj = skill => {
     stat: stat,
     prof: false
   };
-  console.log(skillObj);
   return skillObj;
 };
 

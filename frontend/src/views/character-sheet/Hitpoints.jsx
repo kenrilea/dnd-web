@@ -25,7 +25,6 @@ class Hitpoints extends Component {
 
   applyDmg = amount => {
     amount = parseInt(amount);
-    console.log("damage" + amount);
     if (this.state.bonus > 0) {
       if (this.state.bonus > amount) {
         this.setState({
@@ -45,7 +44,6 @@ class Hitpoints extends Component {
   };
   applyHeal = amount => {
     amount = parseInt(amount);
-    console.log("heal" + amount);
     let newHp = this.state.current + amount;
     if (newHp > this.state.max) {
       newHp = this.state.max;
@@ -61,12 +59,10 @@ class Hitpoints extends Component {
 
   addBonus = amount => {
     amount = parseInt(amount);
-    console.log("add bonus hp " + amount);
     let newBonus = this.state.bonus + amount;
     this.setState({ bonus: newBonus, modifyBonus: undefined });
   };
   subBonus = amount => {
-    console.log("remove bonus hp " + amount);
     let newBonus = this.state.bonus - amount;
     if (newBonus <= 0) {
       newBonus = 0;
@@ -90,7 +86,6 @@ class Hitpoints extends Component {
   };
 
   render = () => {
-    console.log(this.state.bonus);
     return (
       <div className="stat-wrapper">
         <div className="hitpoint-wrapper">

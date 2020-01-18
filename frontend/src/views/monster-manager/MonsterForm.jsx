@@ -39,7 +39,6 @@ class MonsterForm extends Component {
 
   submitHandler = async event => {
     event.preventDefault();
-    console.log(this.state);
     let data = new FormData();
     data.append("stats", this.state.stats);
     data.append("name", this.state.name);

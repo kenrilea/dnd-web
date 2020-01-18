@@ -151,7 +151,6 @@ class UnconnectedCharCreator extends Component {
       finalChar.mods[this.state.lvlOne.spellStat];
     let charJSON = JSON.stringify(finalChar);
     data.append("charData", charJSON);
-    console.log(data);
     fetch(proxy + "/character/stats", {
       method: "POST",
       body: data,

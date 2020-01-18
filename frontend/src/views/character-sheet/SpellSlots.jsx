@@ -55,7 +55,6 @@ class UnconnectedSpellSlots extends Component {
 }
 
 const mapState = state => {
-  //console.log(state.char.spellSlots);
   return { slots: state.char.spellSlots };
 };
 

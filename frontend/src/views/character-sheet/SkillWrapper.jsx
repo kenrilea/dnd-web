@@ -42,7 +42,6 @@ class UnconnectedSkillWrapper extends Component {
     return mod;
   };
   render = () => {
-    console.log(this.props.pros);
     return (
       <div className="skill-wrapper">
         <div>

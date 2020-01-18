@@ -17,11 +17,9 @@ class UnconnectedLogin extends React.Component {
     event.preventDefault();
     postLogin(this.state.username, this.state.password).then(response => {
       if (response.success === true) {
-        console.log(response);
         this.props.dispatch({ type: "login" });
         return;
       }
-      console.log(response.result);
       this.setState({ loginError: response.result });
     });
   };

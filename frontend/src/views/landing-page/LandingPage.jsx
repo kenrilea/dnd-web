@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 
 import LogoutButton from "../../components/auth/LogoutButton.jsx";
 import LoginSignUp from "../../components/auth/LoginSignup.jsx";
@@ -13,10 +14,14 @@ class UnconnectedLandingPage extends React.Component {
   }
 
   render = () => {
+    const { loggedIn } = this.props;
     return (
       <>
         <LoginSignUp />
         <LogoutButton />
+        {loggedIn &&(
+          <Link to='/character-sheet'>Character sheet</Link>
+        )}
       </>
     );
   };
