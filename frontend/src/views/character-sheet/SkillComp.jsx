@@ -35,8 +35,6 @@ class UnconnectedSkillComp extends Component {
     });
   };
   render = () => {
-    console.log(this.props.skill.name);
-    console.log(this.props.pro);
     if (this.props.edit) {
       return (
         <div>

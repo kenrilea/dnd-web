@@ -10,7 +10,6 @@ class UnconnectedLogoutButton extends React.Component {
     this.state = {};
   }
   handleLogOutClick = () => {
-    console.log("logging out");
     document.cookie = "sid=undefined";
     this.props.dispatch({ type: "logout" });
   };

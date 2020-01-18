@@ -20,7 +20,6 @@ class AbilityForm extends Component {
       dmgDie: this.state.dmgDie,
       dmgMod: this.state.dmgMod
     };
-    console.log("addedAbility");
     let data = new FormData();
     data.append("monster", this.props.monsterName);
     data.append("name", this.state.name);
@@ -38,7 +37,6 @@ class AbilityForm extends Component {
   };
 
   drawAbility = ability => {
-    console.log(ability);
     return (
       <div>
         {ability.name}:{" "}
