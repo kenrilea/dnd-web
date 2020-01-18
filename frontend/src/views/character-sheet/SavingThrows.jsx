@@ -38,9 +38,10 @@ class UnconnectedSavingThrows extends Component {
 const mapState = state => {
   console.log(state.char.stats);
   return {
-    saves: state.char.savingThrowBonuses,
+    saves: state.char.savingThrowPros,
     stats: state.char.mods,
-    pro: 2
+    editing: state.editing,
+    pro: 3
   };
 };
 

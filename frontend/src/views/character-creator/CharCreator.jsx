@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import proxy from "../../proxy.js";
 
 const races = [
   "Elf",
@@ -29,7 +30,7 @@ const charClasses = [
 class UnconnectedCharCreator extends Component {
   constructor(props) {
     super(props);
-    this.state = { stage: 0, char: {}, stats: {} };
+    this.state = { stage: 0, char: {}, stats: {}, traits: [] };
   }
   inputHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -42,11 +43,26 @@ class UnconnectedCharCreator extends Component {
   };
   dropdownHandler = event => {
     let name = event.target.name;
-    console.log(name + ":" + event.target.value);
     this.setState({ [name]: event.target.value });
   };
-  advance = event => {
-    this.setState({ stage: this.state.stage + 1 });
+  advance = async event => {
+    let newStage = this.state.stage + 1;
+    if (newStage === 1) {
+      const res = await fetch(
+        "/character/template?lvl=1&class=" + this.state.class
+      );
+      let bod = await res.text();
+      bod = JSON.parse(bod);
+      let classData = bod.data;
+      this.setState({
+        stage: newStage,
+        baseClass: classData.base[0],
+        lvlOne: classData.base[1]
+      });
+      return;
+    } else {
+      this.setState({ stage: newStage });
+    }
   };
   statChange = event => {
     let newStats = { ...this.state.stats };
@@ -61,31 +77,33 @@ class UnconnectedCharCreator extends Component {
         let index = Math.floor(Math.random() * 26);
         id = id + base[index];
       }
+      return id;
     };
     let generateMods = statObj => {
       let mods = {};
       let names = Object.keys(statObj);
       names.forEach(stat => {
-        let mod = statObj[stat] - 10;
-        mod = mod / 2;
-        if (mod > 0) {
-          mod = Math.floor(mod);
+        let mod = 0;
+        let statValue = statObj[stat];
+        if (statValue < 10) {
+          mod = (statValue - 10) * -1;
+          mod = Math.round(mod / 2);
+          mod = mod * -1;
         }
-        if (mod < 0) {
-          let round = mod * -1;
-          round = Math.round(round);
-          mod = round * -1;
-        } else {
-          mod = 0;
+        if (statValue > 11) {
+          mod = (statValue - 10) / 2;
+          mod = Math.floor(mod);
         }
         mods[stat] = mod;
       });
       return mods;
     };
     let data = new FormData();
-    data.append("id", generateId(6));
+    const charId = generateId(6);
+    data.append("id", charId);
     let finalChar = {
       baseInfo: {
+        id: charId,
         name: this.state.charName,
         class: this.state.class,
         race: this.state.race,
@@ -99,40 +117,45 @@ class UnconnectedCharCreator extends Component {
       stats: this.state.stats,
       mods: generateMods(this.state.stats),
       skillPros: [],
-      otherPros: [],
-      savingThrowPros: [false, false, false, false, false, false],
+      otherPros: this.state.baseClass.extraProficiencies,
+      savingThrowPros: this.state.baseClass.savingThrows,
       combatStats: {},
       weapons: [],
       equipment: [],
       inventory: [],
-      cash: {},
+      cash: { copper: 0, silver: 0, gold: 0 },
       languages: [],
-      featuresAndTraits: [],
+      featuresAndTraits: this.state.traits,
       effects: [],
-      spellSlots: {},
-      preparedSpells: []
+      spellSlots: this.state.lvlOne.spellSlots,
+      preparedSpells: [],
+      classSpells: this.state.lvlOne.classSpells
     };
 
     let combatStats = {
       armorClass: 10 + finalChar.mods.dex,
       initiative: finalChar.mods.dex,
-      speed: 25,
+      speed: 30,
       maxHealth:
-        this.state.baseHp + finalChar.mods.con * finalChar.baseInfo.level,
+        this.state.baseClass.baseHP +
+        finalChar.mods.con * finalChar.baseInfo.level,
       bonusHealth: 0,
-      hitDice: "D4",
+      hitDice: this.state.lvlOne.hitDice,
       deathSaves: [],
       passivePerception: 10 + finalChar.mods.wis
     };
     finalChar.combatStats = combatStats;
     finalChar.combatStats.currentHealth = finalChar.combatStats.maxHealth;
+    finalChar.maxPrepared =
+      this.state.lvlOne.maxPrepared +
+      finalChar.mods[this.state.lvlOne.spellStat];
     let charJSON = JSON.stringify(finalChar);
-    data.append("charJSON", charJSON);
-    console.log("char packaged for shipment");
+    data.append("charData", charJSON);
     console.log(data);
-    fetch("http://localhost:4000/character/stats", {
+    fetch(proxy + "/character/stats", {
       method: "POST",
-      body: data
+      body: data,
+      credentials: "include"
     });
   };
   render = () => {

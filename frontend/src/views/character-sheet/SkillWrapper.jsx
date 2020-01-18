@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import SkillComp from "./SkillComp.jsx";
+import { connect } from "react-redux";
 
-class SkillWrapper extends Component {
+class UnconnectedSkillWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = { search: undefined };
@@ -41,7 +42,7 @@ class SkillWrapper extends Component {
     return mod;
   };
   render = () => {
-    console.log(this.props.stats);
+    console.log(this.props.pros);
     return (
       <div className="skill-wrapper">
         <div>
@@ -59,7 +60,8 @@ class SkillWrapper extends Component {
               <SkillComp
                 skill={skill}
                 stat={this.getStat(skill.stat)}
-                pro={this.props.pro}
+                pro={this.props.pros.includes(skill.name)}
+                edit={this.props.editing}
               />
             );
           })}
@@ -68,5 +70,15 @@ class SkillWrapper extends Component {
     );
   };
 }
+
+const mapState = state => {
+  return {
+    stats: state.char.stats,
+    pros: state.char.skillPros,
+    editing: state.editing
+  };
+};
+
+const SkillWrapper = connect(mapState)(UnconnectedSkillWrapper);
 
 export default SkillWrapper;

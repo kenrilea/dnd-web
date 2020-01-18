@@ -14,7 +14,6 @@
 .flex-vertical {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .quarter-width {
   max-width: 25vw;
@@ -29,8 +28,32 @@
   background-color: #292929;
   border: 1px solid whitesmoke;
   color: white;
+  padding: 3px;
+}
+.input-subheader {
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+  padding: 5px;
+  font-variant: small-caps;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.input-area {
+  width: 90%;
+  background-color: #292929;
+  border: 1px solid whitesmoke;
+  color: white;
+  padding: 5px;
+  height: 200px;
 }
 .wrapper {
+  margin: 3px;
+  border: 2px solid whitesmoke;
+  padding: 5px;
+}
+.wrapper-note {
+  box-sizing: border-box;
   margin: 3px;
   border: 2px solid whitesmoke;
   padding: 5px;
@@ -94,6 +117,7 @@
   border-radius: 15px;
   padding: 10px;
   width: max-content;
+  min-width: fit-content;
 }
 .combat-button {
   background-color: #292929;

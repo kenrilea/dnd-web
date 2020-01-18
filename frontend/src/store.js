@@ -4,8 +4,9 @@ import characterData from "../assets/characterData.js";
 
 const initialState = {
   stateExists: true,
-  char: characterData,
-  loggedIn: false
+  char: undefined,
+  loggedIn: false,
+  editing: false
 };
 
 const store = createStore(

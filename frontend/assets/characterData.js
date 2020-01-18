@@ -83,24 +83,20 @@ const characterData = {
   effects: [],
   spellSlots: {
     first: { max: 4, filled: 2 },
-    second: { max: 3, filled: 1 },
-    third: { max: 3, filled: 0 },
-    fourth: { max: 3, filled: 0 },
-    fifth: { max: 2, filled: 0 },
-    sixth: { max: 2, filled: 0 },
-    seventh: { max: 2, filled: 0 },
-    eighth: { max: 2, filled: 0 },
-    ninth: { max: 1, filled: 0 }
+    second: { max: 3, filled: 1 }
   },
+  maxPrepared: 5,
+  maxKnown: 999,
   preparedSpells: [
     {
       spellId: "ghalof",
       spell_name: "Eldritch Blast",
-      level: "Evocation cantrip",
+      level: "cantrip",
       casting_time: "1 action",
       range: "120 feet",
       save: "ranged attack (roll a d20 to hit)",
       damage: "1d10",
+      components: "V",
       levelAugments:
         "two beams at 5th level, three beams at 11th level, and four beams at 17th level",
       description: "a blast of spooky energy! (totally OP)"
@@ -121,6 +117,7 @@ const characterData = {
         the target of the attaka dn each creature withtin 5 feet of it 
         mush make a decterit saving throw`
     }
-  ]
+  ],
+  innateSpells: []
 };
 export default characterData;

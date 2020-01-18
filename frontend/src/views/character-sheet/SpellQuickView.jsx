@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-class SpellQuickView extends Component {
+class UnconnectedSpellQuickView extends Component {
   constructor(props) {
     super(props);
     this.state = { expanded: false };
@@ -19,6 +20,12 @@ class SpellQuickView extends Component {
       </div>
     );
   };
+  unprepareSpell = () => {
+    this.props.dispatch({
+      type: "unprepareSpell",
+      id: this.props.spell.spellId
+    });
+  };
   render = () => {
     return (
       <div
@@ -36,11 +43,16 @@ class SpellQuickView extends Component {
             <div>Save{": " + this.props.spell.save}</div>
             <div>Damage{": " + this.props.spell.damage}</div>
           </div>
+          <button className="button-base filled" onClick={this.unprepareSpell}>
+            Remove
+          </button>
         </div>
         {this.state.expanded && this.drawFull()}
       </div>
     );
   };
 }
+
+const SpellQuickView = connect()(UnconnectedSpellQuickView);
 
 export default SpellQuickView;

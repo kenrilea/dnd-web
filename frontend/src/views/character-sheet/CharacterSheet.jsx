@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import characterData from "../../../assets/characterData.js";
+import { connect } from "react-redux";
+import { loadChar } from "../../network-action.js";
 import StatWrapper from "./StatWrapper.jsx";
 import SkillWrapper from "./SkillWrapper.jsx";
 import CombatStats from "./CombatStats.jsx";
@@ -8,8 +9,10 @@ import Inventory from "./Inventory.jsx";
 import BasicInfo from "./BasicInfo.jsx";
 import Spells from "./Spells.jsx";
 import Effects from "./Effects.jsx";
+import proxy from "../../proxy.js";
+import Notes from "./Notes.jsx";
 
-class CharacterSheet extends Component {
+class UnconnectedCharacterSheet extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,12 +37,6 @@ class CharacterSheet extends Component {
       ]
     };
   }
-  loadChar = async () => {
-    let charData = characterData;
-    console.log(charData);
-    let mods = this.generateMods(charData.stats);
-    this.setState({ char: charData, stats: charData.stats, mods: mods });
-  };
   generateMods = statsObj => {
     let statToMod = stat => {
       let mod = stat - 10;
@@ -61,49 +58,81 @@ class CharacterSheet extends Component {
     });
     return statMods;
   };
-
-  componentDidMount = () => {
-    console.log("getting character stats");
-    this.loadChar();
+  saveChar = async () => {
+    let data = new FormData();
+    console.log("adding char id to form " + this.props.char.baseInfo.id);
+    data.append("id", this.props.char.baseInfo.id);
+    let charData = JSON.stringify(this.props.char);
+    data.append("charData", charData);
+    const res = await fetch(proxy + "/character/update", {
+      method: "POST",
+      body: data
+    });
+    let body = await res.text();
+    body = JSON.parse(body);
+    if (body.success === true) {
+      return;
+    }
+    alert("body.msg");
   };
-
+  loadPage = async event => {
+    console.log(this.props.match.params.id);
+    let charId = this.props.match.params.id;
+    let charData = await loadChar(charId);
+    console.log(charData);
+    this.props.dispatch({ type: "chooseChar", charData });
+  };
+  toggleEdit = event => {
+    this.props.dispatch({ type: "toggleEdit" });
+  };
   render = () => {
-    if (this.state.char) {
-      return (
-        <div className='page-view'>
-          <BasicInfo />
-          <div className="horozontial-category">
-            <div>
-              <StatWrapper stats={this.state.char.stats} />
-              <CombatStats
-                stats={this.state.mods}
-                combatStats={this.state.char.combatStats}
-                weapons={this.state.char.weapons}
+    if (this.props.char === undefined) {
+      this.loadPage();
+      return <div>Loading....</div>;
+    }
+    this.saveChar();
+    return (
+      <div className="page-view">
+        <BasicInfo />
+        <button onClick={this.toggleEdit} className="button-base">
+          Edit Character
+        </button>
+        <div className="horozontial-category">
+          <div>
+            <StatWrapper />
+            <CombatStats
+              stats={this.props.char.mods}
+              combatStats={this.props.char.combatStats}
+              weapons={this.props.char.weapons}
+            />
+            <div className="stat-wrapper">
+              <SkillWrapper
+                skills={this.state.skills}
+                stats={this.props.char.stats}
+                pro={2}
               />
-              <div className="stat-wrapper">
-                <SkillWrapper
-                  skills={this.state.skills}
-                  stats={this.state.stats}
-                  pro={2}
-                />
-                <div className="flex-vertical">
-                  <Equipment />
-                  <Inventory />
-                </div>
-                <Effects />
+              <div className="flex-vertical">
+                <Equipment />
+                <Inventory />
               </div>
-            </div>
-            <div>
-              <Spells />
+              <Effects />
             </div>
           </div>
+          <div>
+            <Spells />
+          </div>
+
+          <Notes />
         </div>
-      );
-    }
-    return <div>Loading....</div>;
+      </div>
+    );
   };
 }
 
-const mapState = state => {};
+const mapState = state => {
+  return { char: state.char, editing: state.editing };
+};
+
+const CharacterSheet = connect(mapState)(UnconnectedCharacterSheet);
 
 export default CharacterSheet;

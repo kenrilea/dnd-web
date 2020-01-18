@@ -7,7 +7,7 @@ const credentials = "export GOOGLE_APPLICATION_CREDENTIALS=./cloud-vision/";
 
 const writeFile = (filename, data, shouldStringify) => {
   if (shouldStringify) {
-    data = JSON.stringify(data);
+    data = JSON.stringify(data, undefined, "\t");
     fs.writeFile(`${__dirname}/spells/${filename}.json`, data, err => {
       if (err) {
         console.log(err);

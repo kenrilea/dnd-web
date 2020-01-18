@@ -1,5 +1,4 @@
 const mongo = require("../Mongo/MongoExports.js");
-const readSpell = require("../../utilities/readSpell.js");
 
 let collections = {};
 
@@ -53,4 +52,4 @@ const routes = (app, upload, initialize) => {
   });
 };
 
-module.exports = { routes };
+module.exports = { routes, addSpell };

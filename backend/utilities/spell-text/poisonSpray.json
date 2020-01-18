@@ -1,1 +1,14 @@
-["POISON SPRAY","cantrip conjuration","Casting Time: 1 action","Range: 10 feet","Components: VS","Duration: Instantane ous","Classes: Druid, Sorcerer, Warlock, Wizard","You extend your hand toward a creature you can see within range and project a puff of noxious","from your palm. The creature must succeed on a Constitution saving throw or take 1d12 poison","damage.","gas",""]
+[
+  "POISON SPRAY",
+  "conjuration cantrip",
+  "Casting Time: 1 action",
+  "Range: 10 feet",
+  "Components: VS",
+  "Duration: Instantane ous",
+  "Classes: Druid, Sorcerer, Warlock, Wizard",
+  "You extend your hand toward a creature you can see within range and project a puff of noxious",
+  "from your palm. The creature must succeed on a Constitution saving throw or take 1d12 poison",
+  "damage.",
+  "gas",
+  ""
+]
