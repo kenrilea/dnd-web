@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loadChar } from "../../network-action.js";
-import proxy from '../../proxy.js';
 
+import { loadChar } from "../../network-action.js";
 import characterData from "../../../assets/characterData.js";
 import StatWrapper from "./StatWrapper.jsx";
 import SkillWrapper from "./SkillWrapper.jsx";
@@ -19,6 +18,7 @@ class UnconnectedCharacterSheet extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       skills: [
         { name: "Animal Handling", stat: "wis", prof: false },
         { name: "Arcana", stat: "int", prof: false },
@@ -89,8 +89,9 @@ class UnconnectedCharacterSheet extends Component {
     this.props.dispatch({ type: "toggleEdit" });
   };
   render = () => {
-    if (this.props.char === undefined) {
+    if (this.props.char === undefined && this.state.loaded === false) {
       this.loadPage();
+      this.setState({ loaded: true})
       return <div>Loading....</div>;
     }
     this.saveChar();

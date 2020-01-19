@@ -70,7 +70,8 @@ const addUserChar = req => {
       if (err) {
         console.log(err);
       }
-      newChars = result.charList.concat(charId);
+      
+      newChars = ((result && result.charList) || []).concat(charId);
       console.log(newChars);
       collections.userData.updateOne(
         { username: user },
@@ -92,7 +93,7 @@ const characterList = user => {
         console.log(err);
         resolve([]);
       }
-      resolve(result.charList);
+      resolve((result || {}).charList);
     });
   });
   return dbResult;

@@ -49,10 +49,11 @@ class UnconnectedCharCreator extends Component {
     let newStage = this.state.stage + 1;
     if (newStage === 1) {
       const res = await fetch(
-        "/character/template?lvl=1&class=" + this.state.class
+        proxy + "/character/template?lvl=1&class=" + this.state.class
       );
       let bod = await res.text();
       bod = JSON.parse(bod);
+      console.log(bod);
       let classData = bod.data;
       this.setState({
         stage: newStage,
