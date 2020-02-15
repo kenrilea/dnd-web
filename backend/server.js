@@ -42,6 +42,9 @@ let Collection_Characters;
 let Collection_CharacterStats;
 let Collection_CharacterBaseInfo;
 let Collection_CharacterProficiency;
+let Collection_CharacterSpells;
+let Collection_CharacterCombatStats;
+let Collection_CharacterItems;
 let Collection_Spells;
 let Collection_UserData;
 
@@ -65,6 +68,9 @@ let Collection_UserData;
       Collection_CharacterStats = CharactersDB.collection("character_stats");
       Collection_CharacterBaseInfo = CharactersDB.collection("character_base_info");
       Collection_CharacterProficiency = CharactersDB.collection("character_proficiency");
+      Collection_CharacterItems = CharactersDB.collection("character_items");
+      Collection_CharacterCombatStats = CharactersDB.collection("character_combat_stats");
+      Collection_CharacterSpells = CharactersDB.collection("character_spells");
       Collection_Spells = GameDB.collection("spells");
       Collection_Notes = CharactersDB.collection("notes");
     }
@@ -156,6 +162,9 @@ characterdata.routes(app, upload, () => ({
     baseInfo: Collection_CharacterBaseInfo,
     stats: Collection_CharacterStats,
     proficiency: Collection_CharacterProficiency,
+    spells: Collection_CharacterSpells,
+    combatStats: Collection_CharacterCombatStats,
+    items: Collection_CharacterItems,
   }
 }));
 
