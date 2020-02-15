@@ -63,10 +63,10 @@ const addUserChar = req => {
     if (err) {
       console.log(err);
     }
-    let user = session.username;
+    let userId = session.userId;
     console.log("session found for " + user);
     const charId = req.body.id;
-    collections.userData.findOne({ username: user }, (err, result) => {
+    collections.userData.findOne({ userId }, (err, result) => {
       if (err) {
         console.log(err);
       }
@@ -74,7 +74,7 @@ const addUserChar = req => {
       newChars = ((result && result.charList) || []).concat(charId);
       console.log(newChars);
       collections.userData.updateOne(
-        { username: user },
+        { userId, },
         { $set: { charList: newChars } },
         (err, result) => {
           if (err) {

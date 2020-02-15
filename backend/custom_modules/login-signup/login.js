@@ -23,7 +23,7 @@ let login = (
       const foundUser = foundUserArr[0];
       if (passwordHash.verify(password, foundUser.hashedPassword)) {
         console.log("password match");
-        startSession(Collection_Sessions, username, res);
+        startSession(Collection_Sessions, foundUser.userId, res);
         return;
       }
       console.log("passwords did not match");

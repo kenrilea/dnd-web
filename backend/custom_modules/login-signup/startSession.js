@@ -1,22 +1,22 @@
 const generateRandomString = require("../../utilities/generateRandomString");
 
-let startSession = (collection, username, res) => {
+let startSession = (collection, userId, res) => {
   const sessionId = generateRandomString(20);
 
-  collection.find({ username: username }).toArray((err, SessionArr) => {
+  collection.find({ userId }).toArray((err, SessionArr) => {
     if (SessionArr.length < 1) {
       collection.insertOne({
         sid: sessionId,
-        username: username
+        userId
       });
       console.log("created a new session");
       return;
     } else {
-      let query = { username: username };
+      let query = { userId };
       let updatedSession = {
         $set: {
           sid: sessionId,
-          username: username
+          userId
         }
       };
       collection.updateOne(query, updatedSession, (err, result) => {
@@ -31,7 +31,7 @@ let startSession = (collection, username, res) => {
   res.send(
     JSON.stringify({
       success: true,
-      result: "logged in as " + username
+      result: "logged in"
     })
   );
 };
