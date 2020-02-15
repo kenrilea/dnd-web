@@ -3,4 +3,5 @@ module.exports = {
     ...require('./findOne.js'),
     ...require('./listCollection'),
     ...require('./searchOne'),
+    ...require('./updateOne'),
 }

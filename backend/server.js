@@ -12,6 +12,8 @@ const MongoClient = require("mongodb").MongoClient;
 
 // ____________ENDPOINTS___________________
 const characterdata = require('./custom_modules/character/data/rest');
+const characterList = require('./custom_modules/character/list/rest');
+
 //_________________________________________
 
 const passwordCheck = require(__dirname + "/utilities/passwordCheck.js");
@@ -143,20 +145,21 @@ app.post("/login", upload.none(), (req, res) => {
 
 // Character
 
-character.routes(app, upload, () => ({
-  loginInfo: Collection_LoginInfo,
-  sessions: Collection_Sessions,
-  characterStats: Collection_CharacterStats,
-  userData: Collection_UserData,
-  characterNotes: Collection_Notes
-}));
-spells.routes(app, upload, () => ({
-  loginInfo: Collection_LoginInfo,
-  sessions: Collection_Sessions,
-  spells: Collection_Spells
-}));
+// character.routes(app, upload, () => ({
+//   loginInfo: Collection_LoginInfo,
+//   sessions: Collection_Sessions,
+//   characterStats: Collection_CharacterStats,
+//   userData: Collection_UserData,
+//   characterNotes: Collection_Notes
+// }));
+// spells.routes(app, upload, () => ({
+//   loginInfo: Collection_LoginInfo,
+//   sessions: Collection_Sessions,
+//   spells: Collection_Spells
+// }));
 characterdata.routes(app, upload, () => ({
   sessions: Collection_Sessions,
+  users: Collection_UserData,
   character: {
     index: Collection_Characters,
     baseInfo: Collection_CharacterBaseInfo,
@@ -166,6 +169,10 @@ characterdata.routes(app, upload, () => ({
     combatStats: Collection_CharacterCombatStats,
     items: Collection_CharacterItems,
   }
+}));
+characterList.routes(app, upload, () => ({
+  users: Collection_UserData,
+  sessions: Collection_Sessions,
 }));
 
 //__________________TEST CODE_________________________

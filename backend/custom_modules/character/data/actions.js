@@ -1,4 +1,4 @@
-const { insertUnique } = require('../../Mongo/insertUnique.js')
+const { insertUnique, updateOne } = require('../../Mongo/MongoExports.js')
 const createId = require('../../../utilities/generateRandomString.js');
 
 const post = async (collections, data, userId) => {
@@ -62,6 +62,15 @@ const post = async (collections, data, userId) => {
         console.log('adding combat stats to DB failed');
     }
 
+    // --- add to character list ---
+    const characterListData = {
+        _id,
+        name: data.data.baseInfo.name,
+    };
+    console.log(characterListData)
+    console.log(updateOne);
+    const characterListResult = await updateOne(collections.users, { userId }, { $push: { characterList: characterListData } })
+    console.log(characterListResult);
     return { success: true, message: 'character saved' }
 }
 

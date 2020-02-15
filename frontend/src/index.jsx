@@ -21,6 +21,8 @@ import CharacterSelect from "./views/character-select/CharacterSelect.jsx";
 import SpellViewer from "./views/character-sheet/SpellViewer.jsx";
 import CharacterForm from './views/character-form/characterform.jsx';
 
+import CharacterList from './views/character-form/CharacterList.jsx';
+
 let root = (
   <Provider store={store}>
     <AutoLogin />
@@ -46,7 +48,8 @@ let root = (
           component={CharacterSelect}
         />
         <Route exact={true} path="/spells" component={SpellViewer} />
-        <Route exact={true} path='/characterform' component={CharacterForm} />
+        <Route exact={true} path='/basic/add' component={CharacterForm} />
+        <Route exact={true} path='/basic/list' component={CharacterList} />
       </Switch>
     </BrowserRouter>
   </Provider>
