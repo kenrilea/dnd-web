@@ -197,7 +197,7 @@ export const characterSchema = {
       components: { 
           type: 'array',
           elementSchema: {
-              type: 'string'
+              name: { type: 'string' },
           },
       },
       duration: { type: 'string' },

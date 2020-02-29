@@ -14,7 +14,6 @@ const ArrayField = (props) => {
 
     const renderElements = () => {
         const value = getValue(startingPath);
-        console.log(value);
         if (!Array.isArray(value)) return (<></>)
         return value.map((_, index) => {
             const currentPath = [...startingPath, index];

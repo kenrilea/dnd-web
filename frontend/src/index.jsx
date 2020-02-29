@@ -20,8 +20,8 @@ import CharCreator from "./views/character-creator/CharCreator.jsx";
 import CharacterSelect from "./views/character-select/CharacterSelect.jsx";
 import SpellViewer from "./views/character-sheet/SpellViewer.jsx";
 import CharacterForm from './views/character-form/characterform.jsx';
-
 import CharacterList from './views/character-form/CharacterList.jsx';
+import CharacterViewer from './views/character-form/CharacterViewer.jsx';
 
 let root = (
   <Provider store={store}>
@@ -50,6 +50,7 @@ let root = (
         <Route exact={true} path="/spells" component={SpellViewer} />
         <Route exact={true} path='/basic/add' component={CharacterForm} />
         <Route exact={true} path='/basic/list' component={CharacterList} />
+        <Route exact={true} path='/basic/character/:_id' component={CharacterViewer} />
       </Switch>
     </BrowserRouter>
   </Provider>

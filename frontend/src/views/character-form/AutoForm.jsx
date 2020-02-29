@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CheckBox from './CheckBox.jsx';
 // import ArrayField from './ArrayField.jsx';
@@ -6,11 +6,13 @@ import AutoField from './AutoField.jsx';
 import { test } from 'ramda';
 
 const AutoForm = (props) => {
-    const { schema, onSubmit } = props;
+    const { schema, onSubmit, initialData } = props;
 
-    const [formData, setFormData] = useState({
-        baseInfo: { name: 'jim' },
-    });
+    const [formData, setFormData] = useState(initialData);
+
+    useEffect(() => {
+        setFormData(initialData)
+    }, [initialData])
 
     const setFieldValue = (path, value) => {
         // -----declare-----
@@ -97,6 +99,11 @@ const AutoForm = (props) => {
 AutoForm.propTypes = {
     schema: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    initialData: PropTypes.object,
 }
+
+AutoForm.defaultProps = {
+    initialData: {},
+};
 
 export default AutoForm;

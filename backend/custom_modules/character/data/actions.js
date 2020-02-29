@@ -1,4 +1,4 @@
-const { insertUnique, updateOne } = require('../../Mongo/MongoExports.js')
+const { insertUnique, updateOne, findOne } = require('../../Mongo/MongoExports.js')
 const createId = require('../../../utilities/generateRandomString.js');
 
 const post = async (collections, data, userId) => {
@@ -74,4 +74,64 @@ const post = async (collections, data, userId) => {
     return { success: true, message: 'character saved' }
 }
 
-module.exports = { post }
+const get = async (collections, data, userId) => {
+    const { characterId } = data.data;
+    try {
+        const baseInfo = await findOne(collections.character.index, { _id: characterId, userId })
+        const stats = await findOne(collections.character.stats, { _id: characterId })
+        const proficiency = await findOne(collections.character.proficiency, { _id: characterId })
+        const spells = await findOne(collections.character.spells, { _id: characterId })
+        const items = await findOne(collections.character.items, { _id: characterId })
+        const combatStats = await findOne(collections.character.combatStats, { _id: characterId })
+        const result = {
+            data: {
+                character: {
+                    _id: characterId,
+                    baseInfo: baseInfo.data,
+                    stats: stats.data,
+                    combatStats: combatStats.data,
+                    proficiency: proficiency.data,
+                    spells: spells.data.spells,
+                    items: items.data.inventory
+                },
+            },
+            success: true,
+        }
+        return result
+    } catch (e) {
+        console.log(e)
+        return { success: false, message: `an error occured while fetching character data for ${characterId}`}
+    }
+};
+
+const put = async (collections, data, userId) => {
+    console.log(data);
+    const {
+        characterId = { updated: true},
+        baseInfo = { updated: true },
+        stats = { updated: true},
+        combatStats = { updated: true },
+        proficiency = { updated: true },
+        spells = { updated: true },
+        items = { updated: true},
+    } = data.data;
+    console.log('before')
+    console.log(baseInfo)
+    console.log('after')
+    console.log(baseInfo);
+    const baseInfoResult = await updateOne(collections.character.index, { _id: characterId }, { $set: baseInfo })
+    console.log(baseInfoResult)
+    const statsResult = await updateOne(collections.character.stats, { _id: characterId }, { $set: stats })
+    console.log(statsResult)
+    const proficiencyResult = await updateOne(collections.character.proficiency, { _id: characterId }, { $set: proficiency })
+    console.log(proficiencyResult)
+    const spellsResult = await updateOne(collections.character.spells, { _id: characterId }, { $set: spells })
+    console.log(spellsResult)
+    const itemsResult = await updateOne(collections.character.items, { _id: characterId }, { $set: items })
+    console.log(itemsResult)
+    const combatStatsResult = await updateOne(collections.character.combatStats, { _id: characterId }, { $set: combatStats })
+    console.log(combatStatsResult)
+    return { success: true }
+}
+
+module.exports = { get, post, put }
