@@ -1,4 +1,5 @@
 const startSession = require("./startSession");
+const createId = require('../../utilities/generateRandomString.js')
 
 const signUp = (
   loginInfoCollection,
@@ -21,8 +22,10 @@ const signUp = (
       );
       return;
     }
+    const userId = createId(10)
     loginInfoCollection.insertOne(
       {
+        userId,
         username,
         hashedPassword
       },
@@ -32,14 +35,14 @@ const signUp = (
 
           throw err;
         }
-        const newUser = { username: username, charList: [] };
+        const newUser = { username: username, charList: [], userId };
         userData.insertOne({ ...newUser }, (err, result) => {
           if (err) {
             console.log(err);
             throw err;
           }
           console.log("account created");
-          startSession(sessionsCollection, username, res);
+          startSession(sessionsCollection, userId, res);
         });
       }
     );

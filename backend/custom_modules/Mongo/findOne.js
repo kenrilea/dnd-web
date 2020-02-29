@@ -1,6 +1,8 @@
 const findOne = (collection, id) => {
     const dbRequest = new Promise ((resolve, reject) => {
-        collection.find({ id }).toArray( (err, result) => {
+        const query = typeof id === 'object' ? id : { id }
+        console.log(query);
+        collection.find(query).toArray( (err, result) => {
             if(err) {
                 resolve({ success: false, error: err})
             }

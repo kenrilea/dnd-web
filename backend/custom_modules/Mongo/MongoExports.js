@@ -1,5 +1,7 @@
 module.exports = {
     ...require('./insertUnique'),
     ...require('./findOne.js'),
-    ...require('./listCollection')
+    ...require('./listCollection'),
+    ...require('./searchOne'),
+    ...require('./updateOne'),
 }

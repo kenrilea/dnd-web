@@ -10,6 +10,12 @@ const app = express();
 
 const MongoClient = require("mongodb").MongoClient;
 
+// ____________ENDPOINTS___________________
+const characterdata = require('./custom_modules/character/data/rest');
+const characterList = require('./custom_modules/character/list/rest');
+
+//_________________________________________
+
 const passwordCheck = require(__dirname + "/utilities/passwordCheck.js");
 const signUpPreChecks = require("./utilities/signUpPreChecks");
 const passwordHash = require("password-hash");
@@ -33,7 +39,14 @@ let dataBaseUrl = require("./utilities/databaseURI");
 let UsersDB;
 let Collection_LoginInfo;
 let Collection_Sessions;
+// character
+let Collection_Characters;
 let Collection_CharacterStats;
+let Collection_CharacterBaseInfo;
+let Collection_CharacterProficiency;
+let Collection_CharacterSpells;
+let Collection_CharacterCombatStats;
+let Collection_CharacterItems;
 let Collection_Spells;
 let Collection_UserData;
 
@@ -53,7 +66,13 @@ let Collection_UserData;
       Collection_LoginInfo = UsersDB.collection("LoginInfo");
       Collection_UserData = UsersDB.collection("users");
       Collection_Sessions = UsersDB.collection("Sessions");
-      Collection_CharacterStats = CharactersDB.collection("stats");
+      Collection_Characters = CharactersDB.collection("characters");
+      Collection_CharacterStats = CharactersDB.collection("character_stats");
+      Collection_CharacterBaseInfo = CharactersDB.collection("character_base_info");
+      Collection_CharacterProficiency = CharactersDB.collection("character_proficiency");
+      Collection_CharacterItems = CharactersDB.collection("character_items");
+      Collection_CharacterCombatStats = CharactersDB.collection("character_combat_stats");
+      Collection_CharacterSpells = CharactersDB.collection("character_spells");
       Collection_Spells = GameDB.collection("spells");
       Collection_Notes = CharactersDB.collection("notes");
     }
@@ -68,7 +87,6 @@ app.use(cors());
 app.use(cors({ credentials: true, origin: "http://" + hostIp + ":3000" })); // CONFIG FOR LOCAL SERVER
 app.use("/images", express.static(__dirname + "/uploads")); // Files in local folder uploads have endpoints as /images/x
 app.use("/assets", express.static(__dirname + "/assets"));
-app.use("/", express.static(__dirname + "/build"));
 
 //app.use(cors({ credentials: true, origin: "http://134.209.119.133:3000" })); // CONFIG FOR REMOTE SERVER
 
@@ -127,17 +145,34 @@ app.post("/login", upload.none(), (req, res) => {
 
 // Character
 
-character.routes(app, upload, () => ({
-  loginInfo: Collection_LoginInfo,
+// character.routes(app, upload, () => ({
+//   loginInfo: Collection_LoginInfo,
+//   sessions: Collection_Sessions,
+//   characterStats: Collection_CharacterStats,
+//   userData: Collection_UserData,
+//   characterNotes: Collection_Notes
+// }));
+// spells.routes(app, upload, () => ({
+//   loginInfo: Collection_LoginInfo,
+//   sessions: Collection_Sessions,
+//   spells: Collection_Spells
+// }));
+characterdata.routes(app, upload, () => ({
   sessions: Collection_Sessions,
-  characterStats: Collection_CharacterStats,
-  userData: Collection_UserData,
-  characterNotes: Collection_Notes
+  users: Collection_UserData,
+  character: {
+    index: Collection_Characters,
+    baseInfo: Collection_CharacterBaseInfo,
+    stats: Collection_CharacterStats,
+    proficiency: Collection_CharacterProficiency,
+    spells: Collection_CharacterSpells,
+    combatStats: Collection_CharacterCombatStats,
+    items: Collection_CharacterItems,
+  }
 }));
-spells.routes(app, upload, () => ({
-  loginInfo: Collection_LoginInfo,
+characterList.routes(app, upload, () => ({
+  users: Collection_UserData,
   sessions: Collection_Sessions,
-  spells: Collection_Spells
 }));
 
 //__________________TEST CODE_________________________
@@ -182,9 +217,6 @@ app.post("/test/save-char", upload.none(), (req, res) => {
       console.log("character library written");
     }
   );
-});
-app.get("/", (req, res) => {
-  res.sendFile("C:/Users/travi/web_files/dnd-web/frontend/build/index.html");
 });
 
 /*
